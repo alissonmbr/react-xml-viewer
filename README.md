@@ -15,12 +15,16 @@ npm install --save react-xml-viewer
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-xml-viewer'
+import XMLViewer from 'react-xml-viewer'
 
-class Example extends Component {
+const xml = '<xml>Example</xml>'
+
+export default class App extends Component {
   render () {
     return (
-      <MyComponent />
+      <div>
+        <XMLViewer xml={xml} />
+      </div>
     )
   }
 }
