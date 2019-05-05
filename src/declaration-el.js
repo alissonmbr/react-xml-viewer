@@ -1,5 +1,6 @@
 import React from 'react';
 import Attributes from './attributes';
+import PropTypes from 'prop-types';
 
 const DeclarationElement = ({ attributes, styles }) => {
     return (
@@ -10,6 +11,11 @@ const DeclarationElement = ({ attributes, styles }) => {
             <span style={{ color: styles.separatorColor }}>{`?>`}</span>
         </div>
     );
+}
+
+DeclarationElement.propTypes = {
+    attributes: PropTypes.object.isRequired,
+    styles: PropTypes.object.isRequired,
 }
 
 export default DeclarationElement;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const InstructionElement = ({ name, instruction, styles, indentation }) => {
     return (
@@ -8,6 +9,13 @@ const InstructionElement = ({ name, instruction, styles, indentation }) => {
             <span style={{ color: styles.attributeKeyColor }}>{` ${instruction}`}</span>
             <span style={{ color: styles.separatorColor }}>{`?>`}</span>
         </div>);
+}
+
+InstructionElement.propTypes = {
+    name: PropTypes.string.isRequired,
+    instruction: PropTypes.string.isRequired,
+    styles: PropTypes.object.isRequired,
+    indentation: PropTypes.string.isRequired,
 }
 
 export default InstructionElement;

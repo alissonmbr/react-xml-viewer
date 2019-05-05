@@ -5,6 +5,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var stream = _interopDefault(require('stream'));
 var string_decoder = _interopDefault(require('string_decoder'));
 var React = _interopDefault(require('react'));
+var PropTypes = _interopDefault(require('prop-types'));
 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -2347,31 +2348,32 @@ var Attributes = function Attributes(_ref) {
 
     for (var key in attributes) {
         attributeList.push(React.createElement(
-            React.Fragment,
-            null,
+            'span',
+            { key: 'attr-' + key + '[' + attributes[key] + ']' },
             React.createElement(
-                "span",
-                null,
-                React.createElement(
-                    "span",
-                    { style: { color: styles.attributeKeyColor } },
-                    " " + key
-                ),
-                React.createElement(
-                    "span",
-                    { style: { color: styles.separatorColor } },
-                    "="
-                ),
-                React.createElement(
-                    "span",
-                    { style: { color: styles.attributeValueColor } },
-                    "\"" + attributes[key] + "\""
-                )
+                'span',
+                { style: { color: styles.attributeKeyColor } },
+                ' ' + key
+            ),
+            React.createElement(
+                'span',
+                { style: { color: styles.separatorColor } },
+                "="
+            ),
+            React.createElement(
+                'span',
+                { style: { color: styles.attributeValueColor } },
+                '"' + attributes[key] + '"'
             )
         ));
     }
 
     return attributeList;
+};
+
+Attributes.propTypes = {
+    attributes: PropTypes.object,
+    styles: PropTypes.object.isRequired
 };
 
 var DeclarationElement = function DeclarationElement(_ref) {
@@ -2400,6 +2402,11 @@ var DeclarationElement = function DeclarationElement(_ref) {
     );
 };
 
+DeclarationElement.propTypes = {
+    attributes: PropTypes.object.isRequired,
+    styles: PropTypes.object.isRequired
+};
+
 var CdataElement = function CdataElement(_ref) {
     var cdata = _ref.cdata,
         styles = _ref.styles,
@@ -2412,6 +2419,12 @@ var CdataElement = function CdataElement(_ref) {
     );
 };
 
+CdataElement.propTypes = {
+    cdata: PropTypes.string.isRequired,
+    styles: PropTypes.object.isRequired,
+    indentation: PropTypes.string.isRequired
+};
+
 var CommentElement = function CommentElement(_ref) {
     var comment = _ref.comment,
         styles = _ref.styles,
@@ -2422,6 +2435,12 @@ var CommentElement = function CommentElement(_ref) {
         { style: { color: styles.commentColor } },
         indentation + '<!-- ' + comment + ' -->'
     );
+};
+
+CommentElement.propTypes = {
+    comment: PropTypes.string.isRequired,
+    styles: PropTypes.object.isRequired,
+    indentation: PropTypes.string.isRequired
 };
 
 var InstructionElement = function InstructionElement(_ref) {
@@ -2456,6 +2475,13 @@ var InstructionElement = function InstructionElement(_ref) {
     );
 };
 
+InstructionElement.propTypes = {
+    name: PropTypes.string.isRequired,
+    instruction: PropTypes.string.isRequired,
+    styles: PropTypes.object.isRequired,
+    indentation: PropTypes.string.isRequired
+};
+
 var TextElement = function TextElement(_ref) {
     var text = _ref.text,
         styles = _ref.styles;
@@ -2465,6 +2491,11 @@ var TextElement = function TextElement(_ref) {
         { style: { color: styles.textColor } },
         text
     );
+};
+
+TextElement.propTypes = {
+    text: PropTypes.string.isRequired,
+    styles: PropTypes.object.isRequired
 };
 
 function getIndentationString(size) {
@@ -2484,60 +2515,65 @@ var Element = function Element(_ref) {
         indentSize = _ref.indentSize;
 
     return React.createElement(
-        React.Fragment,
-        null,
+        'div',
+        { style: { paddingLeft: styles.elementPadding, whiteSpace: 'pre' } },
         React.createElement(
-            'div',
-            { style: { paddingLeft: styles.elementPadding, whiteSpace: 'pre' } },
-            React.createElement(
-                'span',
-                { style: { color: styles.separatorColor } },
-                indentation + '<'
-            ),
-            React.createElement(
-                'span',
-                { style: { color: styles.tagColor } },
-                name
-            ),
-            React.createElement(Attributes, { attributes: attributes, styles: styles }),
-            React.createElement(
-                'span',
-                { style: { color: styles.separatorColor } },
-                elements ? '>' : '/>'
-            ),
-            elements && React.createElement(Elements, { elements: elements, styles: styles, indentation: indentation + getIndentationString(indentSize), indentSize: indentSize }),
-            elements && React.createElement(
-                'span',
-                { style: { color: styles.separatorColor } },
-                (isTextElement(elements) ? "" : indentation) + '</'
-            ),
-            elements && React.createElement(
-                'span',
-                { style: { color: styles.tagColor } },
-                name
-            ),
-            elements && React.createElement(
-                'span',
-                { style: { color: styles.separatorColor } },
-                ">"
-            )
+            'span',
+            { style: { color: styles.separatorColor } },
+            indentation + '<'
+        ),
+        React.createElement(
+            'span',
+            { style: { color: styles.tagColor } },
+            name
+        ),
+        React.createElement(Attributes, { attributes: attributes, styles: styles }),
+        React.createElement(
+            'span',
+            { style: { color: styles.separatorColor } },
+            elements ? '>' : '/>'
+        ),
+        elements && React.createElement(Elements, { elements: elements, styles: styles, indentation: indentation + getIndentationString(indentSize), indentSize: indentSize }),
+        elements && React.createElement(
+            'span',
+            { style: { color: styles.separatorColor } },
+            (isTextElement(elements) ? "" : indentation) + '</'
+        ),
+        elements && React.createElement(
+            'span',
+            { style: { color: styles.tagColor } },
+            name
+        ),
+        elements && React.createElement(
+            'span',
+            { style: { color: styles.separatorColor } },
+            ">"
         )
     );
 };
 
+Element.propTypes = {
+    name: PropTypes.string.isRequired,
+    elements: PropTypes.arrayOf(PropTypes.object),
+    attributes: PropTypes.object,
+    styles: PropTypes.object.isRequired,
+    indentation: PropTypes.string.isRequired,
+    indentSize: PropTypes.number.isRequired
+};
+
 var getElement = function getElement(styles, indentation, indentSize) {
-    return function (element) {
+    return function (element, index) {
         switch (element.type) {
             case "text":
-                return React.createElement(TextElement, { text: element.text, styles: styles });
+                return React.createElement(TextElement, { key: 'el-' + index, text: element.text, styles: styles });
             case "element":
-                return React.createElement(Element, { name: element.name, elements: element.elements, attributes: element.attributes, styles: styles, indentation: indentation, indentSize: indentSize });
+                return React.createElement(Element, { key: 'el-' + index, name: element.name, elements: element.elements, attributes: element.attributes, styles: styles, indentation: indentation, indentSize: indentSize });
             case "comment":
-                return React.createElement(CommentElement, { comment: element.comment, styles: styles, indentation: indentation });
+                return React.createElement(CommentElement, { key: 'el-' + index, comment: element.comment, styles: styles, indentation: indentation });
             case "cdata":
-                return React.createElement(CdataElement, { cdata: element.cdata, styles: styles, indentation: indentation });
+                return React.createElement(CdataElement, { key: 'el-' + index, cdata: element.cdata, styles: styles, indentation: indentation });
             case "instruction":
-                return React.createElement(InstructionElement, { instruction: element.instruction, name: element.name, styles: styles, indentation: indentation });
+                return React.createElement(InstructionElement, { key: 'el-' + index, instruction: element.instruction, name: element.name, styles: styles, indentation: indentation });
             default:
                 return null;
         }
@@ -2551,6 +2587,13 @@ var Elements = function Elements(_ref2) {
         indentSize = _ref2.indentSize;
 
     return elements.map(getElement(styles, indentation, indentSize));
+};
+
+Elements.propTypes = {
+    elements: PropTypes.arrayOf(PropTypes.object),
+    styles: PropTypes.object.isRequired,
+    indentation: PropTypes.string.isRequired,
+    indentSize: PropTypes.number.isRequired
 };
 
 var _extends = Object.assign || function (target) {
@@ -2574,8 +2617,18 @@ var XML = function XML(_ref) {
       _ref$styles = _ref.styles,
       styles$$1 = _ref$styles === undefined ? {} : _ref$styles;
 
-  var json = lib.xml2js(xml, { compact: false, spaces: 0 });
+  var json = null;
   var customStyles = _extends({}, styles, styles$$1);
+
+  try {
+    json = lib.xml2js(xml, { compact: false, spaces: 0 });
+  } catch (e) {
+    return React.createElement(
+      'div',
+      null,
+      'Invalid XML!'
+    );
+  }
 
   return React.createElement(
     'div',
