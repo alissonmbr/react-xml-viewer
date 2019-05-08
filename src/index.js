@@ -6,20 +6,19 @@ import DeclarationElement from './declaration-el';
 import Elements from './elements';
 
 const defaultIndentSize = 2;
-const defaultStyles = {
+const defaultTheme = {
   tagColor: '#d43900',
   textColor: '#333',
   attributeKeyColor: '#2a7ab0',
   attributeValueColor: '#008000',
-  elementPadding: '0px',
   separatorColor: '#333',
   commentColor: '#aaa',
-  cdataColor: '#1D781D',
+  cdataColor: '#1d781d',
 };
 
-const XMLViewer = ({ xml, styles = {}, indentSize=defaultIndentSize }) => {
+const XMLViewer = ({ xml, theme = {}, indentSize=defaultIndentSize }) => {
   let json = null;
-  const customStyles = { ...defaultStyles, ...styles };
+  const customTheme = { ...defaultTheme, ...theme };
 
   try {
     json = convert.xml2js(xml, { compact: false, spaces: 0 });
@@ -29,15 +28,15 @@ const XMLViewer = ({ xml, styles = {}, indentSize=defaultIndentSize }) => {
 
   return (
     <div>
-      {json.declaration && <DeclarationElement styles={customStyles} attributes={json.declaration.attributes} />}
-      <Elements elements={json.elements} styles={customStyles} indentSize={indentSize} indentation="" />
+      {json.declaration && <DeclarationElement styles={customTheme} attributes={json.declaration.attributes} />}
+      <Elements elements={json.elements} styles={customTheme} indentSize={indentSize} indentation="" />
     </div>
   );
 }
 
 XMLViewer.propTypes = {
     xml: PropTypes.string.isRequired,
-    styles: PropTypes.object,
+    theme: PropTypes.object,
     indentSize: PropTypes.number,
 }
 
