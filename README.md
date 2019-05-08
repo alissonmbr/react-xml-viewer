@@ -17,7 +17,7 @@ import React, { Component } from 'react'
 
 import XMLViewer from 'react-xml-viewer'
 
-const xml = '<xml>Example</xml>'
+const xml = '<hello>World</hello>'
 
 export default class App extends Component {
   render () {
