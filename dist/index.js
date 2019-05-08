@@ -2329,17 +2329,6 @@ var lib = {
   json2xml: json2xml
 };
 
-var styles = {
-    tagColor: '#d43900',
-    textColor: '#333',
-    attributeKeyColor: '#2a7ab0',
-    attributeValueColor: '#008000',
-    elementPadding: '0px',
-    separatorColor: '#333',
-    commentColor: '#aaa',
-    cdataColor: '#1D781D'
-};
-
 var Attributes = function Attributes(_ref) {
     var attributes = _ref.attributes,
         styles = _ref.styles;
@@ -2516,7 +2505,7 @@ var Element = function Element(_ref) {
 
     return React.createElement(
         'div',
-        { style: { paddingLeft: styles.elementPadding, whiteSpace: 'pre' } },
+        { style: { whiteSpace: 'pre' } },
         React.createElement(
             'span',
             { style: { color: styles.separatorColor } },
@@ -2610,15 +2599,26 @@ var _extends = Object.assign || function (target) {
   return target;
 };
 
-var indentSize = 2;
+var defaultIndentSize = 2;
+var defaultTheme = {
+  tagColor: '#d43900',
+  textColor: '#333',
+  attributeKeyColor: '#2a7ab0',
+  attributeValueColor: '#008000',
+  separatorColor: '#333',
+  commentColor: '#aaa',
+  cdataColor: '#1D781D'
+};
 
-var XML = function XML(_ref) {
+var XMLViewer = function XMLViewer(_ref) {
   var xml = _ref.xml,
-      _ref$styles = _ref.styles,
-      styles$$1 = _ref$styles === undefined ? {} : _ref$styles;
+      _ref$theme = _ref.theme,
+      theme = _ref$theme === undefined ? {} : _ref$theme,
+      _ref$indentSize = _ref.indentSize,
+      indentSize = _ref$indentSize === undefined ? defaultIndentSize : _ref$indentSize;
 
   var json = null;
-  var customStyles = _extends({}, styles, styles$$1);
+  var customTheme = _extends({}, defaultTheme, theme);
 
   try {
     json = lib.xml2js(xml, { compact: false, spaces: 0 });
@@ -2633,10 +2633,16 @@ var XML = function XML(_ref) {
   return React.createElement(
     'div',
     null,
-    json.declaration && React.createElement(DeclarationElement, { styles: customStyles, attributes: json.declaration.attributes }),
-    React.createElement(Elements, { elements: json.elements, styles: customStyles, indentSize: indentSize, indentation: '' })
+    json.declaration && React.createElement(DeclarationElement, { styles: customTheme, attributes: json.declaration.attributes }),
+    React.createElement(Elements, { elements: json.elements, styles: customTheme, indentSize: indentSize, indentation: '' })
   );
 };
 
-module.exports = XML;
+XMLViewer.propTypes = {
+  xml: PropTypes.string.isRequired,
+  theme: PropTypes.object,
+  indentSize: PropTypes.number
+};
+
+module.exports = XMLViewer;
 //# sourceMappingURL=index.js.map

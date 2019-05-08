@@ -17,7 +17,7 @@ function isTextElement(elements) {
 
 const Element = ({ name, elements, attributes, styles, indentation, indentSize }) => {
     return (
-        <div style={{ paddingLeft: styles.elementPadding, whiteSpace: 'pre' }}>
+        <div style={{ whiteSpace: 'pre' }}>
             <span style={{ color: styles.separatorColor }}>{`${indentation}<`}</span>
             <span style={{ color: styles.tagColor }}>{name}</span>
             <Attributes attributes={attributes} styles={styles} />
