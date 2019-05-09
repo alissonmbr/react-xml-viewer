@@ -14,7 +14,6 @@ npm install --save react-xml-viewer
 
 ```jsx
 import React, { Component } from 'react'
-
 import XMLViewer from 'react-xml-viewer'
 
 const xml = '<hello>World</hello>'
@@ -44,20 +43,20 @@ The size of the indentation.
 
 | Key | Type | Default | Description |
 | --- | ---- | ------- | ----------- |
-| tagColor | color | #d43900 | set the tag name color (`<tag-name />`) |
-| textColor | color | #333 | set the text color (`<tag>Text</tag>`)|
 | attributeKeyColor | color | #2a7ab0 | set the attribute key color (`<tag attribute-key="hello" />`) |
 | attributeValueColor | color | #008000 | set the attribute value color (` <tag attr="Attribute value">`) |
-| separatorColor | color | #333 | set the separators colors (<, >, </, />, =, <?, ?>)
+| cdataColor | color | #1D781D | set the cdata element color (`<![CDATA[some stuff]]>`) |
 | commentColor | color | #aaa | set the comment color (`<!-- this is a comment -->`)
-| cdataColor | color | #1D781D | set the cdata element color (`<![CDATA[${cdata}]]>`) |
+| separatorColor | color | #333 | set the separators colors (`<, >, </, />, =, <?, ?>`)
+| tagColor | color | #d43900 | set the tag name color (`<tag-name />`) |
+| textColor | color | #333 | set the text color (`<tag>Text</tag>`)|
 **Example**:
 Changing attribute key and value color 
 ``` jsx
 import React, { Component } from 'react'
 import XMLViewer from 'react-xml-viewer'
 
-const xml = '<hello>World</hello>'
+const xml = '<hello attr="World" />'
 const customTheme = {
   "attributeKeyColor": "#2a7ab0",
   "attributeValueColor": "#008000"
