@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CommentElement = ({ comment, styles, indentation }) => {
+const CommentElement = ({ comment, theme, indentation }) => {
     return (
-        <div style={{ color: styles.commentColor }}>
+        <div style={{ color: theme.commentColor }}>
             {`${indentation}<!-- ${comment} -->`}
         </div>
     );
@@ -11,7 +11,7 @@ const CommentElement = ({ comment, styles, indentation }) => {
 
 CommentElement.propTypes = {
     comment: PropTypes.string.isRequired,
-    styles: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
     indentation: PropTypes.string.isRequired,
 }
 

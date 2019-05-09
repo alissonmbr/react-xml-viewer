@@ -15,17 +15,17 @@ function isTextElement(elements) {
     return elements.length === 1 && elements[0].type === "text";
 }
 
-const Element = ({ name, elements, attributes, styles, indentation, indentSize }) => {
+const Element = ({ name, elements, attributes, theme, indentation, indentSize }) => {
     return (
         <div style={{ whiteSpace: 'pre' }}>
-            <span style={{ color: styles.separatorColor }}>{`${indentation}<`}</span>
-            <span style={{ color: styles.tagColor }}>{name}</span>
-            <Attributes attributes={attributes} styles={styles} />
-            <span style={{ color: styles.separatorColor }}>{(elements ? '>' : '/>')}</span>
-            {elements && <Elements elements={elements} styles={styles} indentation={indentation + getIndentationString(indentSize)} indentSize={indentSize} />}
-            {elements && <span style={{ color: styles.separatorColor }}>{`${isTextElement(elements) ? "" : indentation}</`}</span>}
-            {elements && <span style={{ color: styles.tagColor }}>{name}</span>}
-            {elements && <span style={{ color: styles.separatorColor }}>{">"}</span>}
+            <span style={{ color: theme.separatorColor }}>{`${indentation}<`}</span>
+            <span style={{ color: theme.tagColor }}>{name}</span>
+            <Attributes attributes={attributes} theme={theme} />
+            <span style={{ color: theme.separatorColor }}>{(elements ? '>' : '/>')}</span>
+            {elements && <Elements elements={elements} theme={theme} indentation={indentation + getIndentationString(indentSize)} indentSize={indentSize} />}
+            {elements && <span style={{ color: theme.separatorColor }}>{`${isTextElement(elements) ? "" : indentation}</`}</span>}
+            {elements && <span style={{ color: theme.tagColor }}>{name}</span>}
+            {elements && <span style={{ color: theme.separatorColor }}>{">"}</span>}
         </div>
     );
 }
@@ -34,35 +34,35 @@ Element.propTypes = {
     name: PropTypes.string.isRequired,
     elements: PropTypes.arrayOf(PropTypes.object),
     attributes: PropTypes.object,
-    styles: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
     indentation: PropTypes.string.isRequired,
     indentSize: PropTypes.number.isRequired,
 }
 
-const getElement = (styles, indentation, indentSize) => (element, index) => {
+const getElement = (theme, indentation, indentSize) => (element, index) => {
     switch (element.type) {
         case "text":
-            return <TextElement key={`el-${index}`} text={element.text} styles={styles} />;
+            return <TextElement key={`el-${index}`} text={element.text} theme={theme} />;
         case "element":
-            return <Element key={`el-${index}`} name={element.name} elements={element.elements} attributes={element.attributes} styles={styles} indentation={indentation} indentSize={indentSize} />
+            return <Element key={`el-${index}`} name={element.name} elements={element.elements} attributes={element.attributes} theme={theme} indentation={indentation} indentSize={indentSize} />
         case "comment":
-            return <CommentElement key={`el-${index}`} comment={element.comment} styles={styles} indentation={indentation} />;
+            return <CommentElement key={`el-${index}`} comment={element.comment} theme={theme} indentation={indentation} />;
         case "cdata":
-            return <CdataElement key={`el-${index}`} cdata={element.cdata} styles={styles} indentation={indentation} />;
+            return <CdataElement key={`el-${index}`} cdata={element.cdata} theme={theme} indentation={indentation} />;
         case "instruction":
-            return <InstructionElement key={`el-${index}`} instruction={element.instruction} name={element.name} styles={styles} indentation={indentation} />;
+            return <InstructionElement key={`el-${index}`} instruction={element.instruction} name={element.name} theme={theme} indentation={indentation} />;
         default:
             return null;
     }
 }
 
-const Elements = ({ elements, styles, indentation, indentSize }) => {
-    return elements.map(getElement(styles, indentation, indentSize));
+const Elements = ({ elements, theme, indentation, indentSize }) => {
+    return elements.map(getElement(theme, indentation, indentSize));
 }
 
 Elements.propTypes = {
     elements: PropTypes.arrayOf(PropTypes.object),
-    styles: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
     indentation: PropTypes.string.isRequired,
     indentSize: PropTypes.number.isRequired,
 }

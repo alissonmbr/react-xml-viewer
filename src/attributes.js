@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Attributes = ({ attributes, styles }) => {
+const Attributes = ({ attributes, theme }) => {
     let attributeList = [];
 
     for (const key in attributes) {
         attributeList.push(
             <span key={`attr-${key}[${attributes[key]}]`}>
-                <span style={{ color: styles.attributeKeyColor }}>{` ${key}`}</span>
-                <span style={{ color: styles.separatorColor }}>{"="}</span>
-                <span style={{ color: styles.attributeValueColor }}>{`"${attributes[key]}"`}</span>
+                <span style={{ color: theme.attributeKeyColor }}>{` ${key}`}</span>
+                <span style={{ color: theme.separatorColor }}>{"="}</span>
+                <span style={{ color: theme.attributeValueColor }}>{`"${attributes[key]}"`}</span>
             </span>
         );
     }
@@ -19,7 +19,7 @@ const Attributes = ({ attributes, styles }) => {
 
 Attributes.propTypes = {
     attributes: PropTypes.object,
-    styles: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
 };
 
 
