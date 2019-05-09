@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CdataElement = ({ cdata, styles, indentation }) => {
+const CdataElement = ({ cdata, theme, indentation }) => {
     return (
-        <div style={{ color: styles.cdataColor }}>
+        <div style={{ color: theme.cdataColor }}>
             {`${indentation}<![CDATA[${cdata}]]>`}
         </div>
     );
@@ -11,7 +11,7 @@ const CdataElement = ({ cdata, styles, indentation }) => {
 
 CdataElement.propTypes = {
     cdata: PropTypes.string.isRequired,
-    styles: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
     indentation: PropTypes.string.isRequired,
 }
 

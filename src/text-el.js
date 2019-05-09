@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextElement = ({ text, styles }) => {
+const TextElement = ({ text, theme }) => {
     return (
-        <span style={{ color: styles.textColor }}>
+        <span style={{ color: theme.textColor }}>
             {text}
         </span>
     );
@@ -11,7 +11,7 @@ const TextElement = ({ text, styles }) => {
 
 TextElement.propTypes = {
     text: PropTypes.string.isRequired,
-    styles: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
 }
 
 export default TextElement;

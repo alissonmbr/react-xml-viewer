@@ -28,8 +28,8 @@ const XMLViewer = ({ xml, theme = {}, indentSize=defaultIndentSize }) => {
 
   return (
     <div>
-      {json.declaration && <DeclarationElement styles={customTheme} attributes={json.declaration.attributes} />}
-      <Elements elements={json.elements} styles={customTheme} indentSize={indentSize} indentation="" />
+      {json.declaration && <DeclarationElement theme={customTheme} attributes={json.declaration.attributes} />}
+      <Elements elements={json.elements} theme={customTheme} indentSize={indentSize} indentation="" />
     </div>
   );
 }
