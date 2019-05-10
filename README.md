@@ -50,6 +50,7 @@ The size of the indentation.
 | separatorColor | color | #333 | set the separators colors (`<, >, </, />, =, <?, ?>`)
 | tagColor | color | #d43900 | set the tag name color (`<tag-name />`) |
 | textColor | color | #333 | set the text color (`<tag>Text</tag>`)|
+
 **Example**:
 Changing attribute key and value color 
 ``` jsx
@@ -58,8 +59,8 @@ import XMLViewer from 'react-xml-viewer'
 
 const xml = '<hello attr="World" />'
 const customTheme = {
-  "attributeKeyColor": "#2a7ab0",
-  "attributeValueColor": "#008000"
+  "attributeKeyColor": "#FF0000",
+  "attributeValueColor": "#000FF"
 }
 
 export default class App extends Component {
