@@ -1,10 +1,11 @@
 {
   "name": "react-xml-viewer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "author": "alissonmbr",
   "license": "MIT",
   "repository": "alissonmbr/react-xml-viewer",
+  "keywords": ["xml", "prettify", "beautify", "viewer", "formatter"],
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
