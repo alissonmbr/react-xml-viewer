@@ -4,6 +4,8 @@ Simple and configurable React component to prettify XMLs.
 
 [![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+![alt text](https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/master/example/example-ss.png)
+
 ## Install
 
 ```bash
