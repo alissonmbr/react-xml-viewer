@@ -6,6 +6,7 @@ Simple and configurable React component to prettify XMLs.
 
 <img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/master/example/example-ss.png" width="300"/>
 
+<a href="https://codesandbox.io/s/react-xml-viewer-example-ir4zo">Demo</a>
 ## Install
 
 ```bash
