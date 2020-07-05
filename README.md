@@ -6,7 +6,9 @@ Simple and configurable React component to prettify XMLs.
 
 <img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/master/example/example-ss.png" width="300"/>
 
+## Codesandbox demo
 <a href="https://codesandbox.io/s/react-xml-viewer-example-ir4zo">Demo</a>
+
 ## Install
 
 ```bash
@@ -42,6 +44,10 @@ A xml string to prettify.
 The size of the indentation.
 **Default**: 2
 
+### invalidXml (node)
+When the xml is invalid, invalidXml will be returned.
+**Default**: <div>Invalid XML!</div>
+
 ### theme (object)
 
 | Key | Type | Default | Description |
@@ -53,6 +59,7 @@ The size of the indentation.
 | separatorColor | color | #333 | set the separators colors (`<, >, </, />, =, <?, ?>`)
 | tagColor | color | #d43900 | set the tag name color (`<tag-name />`) |
 | textColor | color | #333 | set the text color (`<tag>Text</tag>`)|
+| overflowBreak | bool | false | adjust the xml to fit in the parent width without overflowing|
 
 **Example**:
 Changing attribute key and value color 
@@ -76,6 +83,11 @@ export default class App extends Component {
   }
 }
 ```
+
+## Run with typescript
+If you have difficulties to run with typescript declare module 'react-xml-viewer' to react-app-env.d.ts
+
+
 ## License
 
 MIT © [alissonmbr](https://github.com/alissonmbr)
