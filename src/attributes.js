@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const Attributes = ({ attributes, theme }) => {
     let attributeList = [];
+    const overflow = theme.overflowBreak ? { overflowWrap: 'break-word', whiteSpace: 'normal' } : {} 
 
     for (const key in attributes) {
         attributeList.push(
@@ -14,7 +15,9 @@ const Attributes = ({ attributes, theme }) => {
         );
     }
 
-    return attributeList;
+    return (
+        <span style={overflow}>{attributeList}</span>
+    );
 }
 
 Attributes.propTypes = {

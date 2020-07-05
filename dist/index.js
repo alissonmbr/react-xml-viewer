@@ -2334,6 +2334,7 @@ var Attributes = function Attributes(_ref) {
         theme = _ref.theme;
 
     var attributeList = [];
+    var overflow = theme.overflowBreak ? { overflowWrap: 'break-word', whiteSpace: 'normal' } : {};
 
     for (var key in attributes) {
         attributeList.push(React.createElement(
@@ -2357,7 +2358,11 @@ var Attributes = function Attributes(_ref) {
         ));
     }
 
-    return attributeList;
+    return React.createElement(
+        'span',
+        { style: overflow },
+        attributeList
+    );
 };
 
 Attributes.propTypes = {
@@ -2471,13 +2476,40 @@ InstructionElement.propTypes = {
     indentation: PropTypes.string.isRequired
 };
 
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+var objectWithoutProperties = function (obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+};
+
 var TextElement = function TextElement(_ref) {
     var text = _ref.text,
         theme = _ref.theme;
 
+    var overflow = theme.overflowBreak ? { overflowWrap: 'break-word', whiteSpace: 'normal' } : {};
     return React.createElement(
         'span',
-        { style: { color: theme.textColor } },
+        { style: _extends({ color: theme.textColor }, overflow) },
         text
     );
 };
@@ -2585,21 +2617,6 @@ Elements.propTypes = {
     indentSize: PropTypes.number.isRequired
 };
 
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-var defaultIndentSize = 2;
 var defaultTheme = {
   tagColor: '#d43900',
   textColor: '#333',
@@ -2607,32 +2624,38 @@ var defaultTheme = {
   attributeValueColor: '#008000',
   separatorColor: '#333',
   commentColor: '#aaa',
-  cdataColor: '#1d781d'
+  cdataColor: '#1d781d',
+  overflowBreak: false
 };
+
+var defaultInvalidXml = React.createElement(
+  'div',
+  null,
+  'Invalid XML!'
+);
 
 var XMLViewer = function XMLViewer(_ref) {
   var xml = _ref.xml,
-      _ref$theme = _ref.theme,
-      theme = _ref$theme === undefined ? {} : _ref$theme,
-      _ref$indentSize = _ref.indentSize,
-      indentSize = _ref$indentSize === undefined ? defaultIndentSize : _ref$indentSize;
+      theme = _ref.theme,
+      indentSize = _ref.indentSize,
+      invalidXml = _ref.invalidXml,
+      props = objectWithoutProperties(_ref, ['xml', 'theme', 'indentSize', 'invalidXml']);
 
   var json = null;
   var customTheme = _extends({}, defaultTheme, theme);
 
   try {
     json = lib.xml2js(xml, { compact: false, spaces: 0 });
+    if (!Array.isArray(json.elements)) {
+      return invalidXml;
+    }
   } catch (e) {
-    return React.createElement(
-      'div',
-      null,
-      'Invalid XML!'
-    );
+    return invalidXml;
   }
 
   return React.createElement(
     'div',
-    null,
+    props,
     json.declaration && React.createElement(DeclarationElement, { theme: customTheme, attributes: json.declaration.attributes }),
     React.createElement(Elements, { elements: json.elements, theme: customTheme, indentSize: indentSize, indentation: '' })
   );
@@ -2641,7 +2664,14 @@ var XMLViewer = function XMLViewer(_ref) {
 XMLViewer.propTypes = {
   xml: PropTypes.string.isRequired,
   theme: PropTypes.object,
-  indentSize: PropTypes.number
+  indentSize: PropTypes.number,
+  invalidXml: PropTypes.node
+};
+
+XMLViewer.defaultProps = {
+  theme: {},
+  indentSize: 2,
+  invalidXml: defaultInvalidXml
 };
 
 module.exports = XMLViewer;

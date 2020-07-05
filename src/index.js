@@ -14,20 +14,26 @@ const defaultTheme = {
   separatorColor: '#333',
   commentColor: '#aaa',
   cdataColor: '#1d781d',
+  overflowBreak: false,
 };
 
-const XMLViewer = ({ xml, theme = {}, indentSize=defaultIndentSize }) => {
+const defaultInvalidXml = (<div>Invalid XML!</div>);
+
+const XMLViewer = ({ xml, theme, indentSize, invalidXml, ...props }) => {
   let json = null;
   const customTheme = { ...defaultTheme, ...theme };
 
   try {
     json = convert.xml2js(xml, { compact: false, spaces: 0 });
+    if (!Array.isArray(json.elements)) {
+      return invalidXml;
+    }
   } catch (e) {
-    return (<div>Invalid XML!</div>);
+    return invalidXml;
   }
 
   return (
-    <div>
+    <div {...props}>
       {json.declaration && <DeclarationElement theme={customTheme} attributes={json.declaration.attributes} />}
       <Elements elements={json.elements} theme={customTheme} indentSize={indentSize} indentation="" />
     </div>
@@ -38,6 +44,13 @@ XMLViewer.propTypes = {
     xml: PropTypes.string.isRequired,
     theme: PropTypes.object,
     indentSize: PropTypes.number,
+    invalidXml: PropTypes.node,
+}
+
+XMLViewer.defaultProps = {
+  theme: {},
+  indentSize: 2,
+  invalidXml: defaultInvalidXml,
 }
 
 export default XMLViewer;
