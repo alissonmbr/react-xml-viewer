@@ -1,6 +1,6 @@
 # react-xml-viewer
 Simple and configurable React component to prettify XMLs.
-> 
+>
 
 [![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -36,7 +36,7 @@ export default class App extends Component {
 
 ## Props
 ### xml (string)
-A xml string to prettify. 
+A xml string to prettify.
 **Default**: undefined
 **Example**: `<hello>World</hello>`
 
@@ -48,6 +48,10 @@ The size of the indentation.
 When the xml is invalid, invalidXml will be returned.
 **Default**: <div>Invalid XML!</div>
 
+### collapsible (bool)
+Allow collapse/expand tags by click on them
+When tag is collapsed its content and attributes are hidden. Only <tag></tag> is shown
+**Default**: false
 ### theme (object)
 
 | Key | Type | Default | Description |
@@ -62,7 +66,7 @@ When the xml is invalid, invalidXml will be returned.
 | overflowBreak | bool | false | adjust the xml to fit in the parent width without overflowing|
 
 **Example**:
-Changing attribute key and value color 
+Changing attribute key and value color
 ``` jsx
 import React, { Component } from 'react'
 import XMLViewer from 'react-xml-viewer'
