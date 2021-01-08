@@ -1,6 +1,6 @@
 import stream from 'stream';
 import string_decoder from 'string_decoder';
-import React from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function createCommonjsModule(fn, module) {
@@ -2498,6 +2498,44 @@ var objectWithoutProperties = function (obj, keys) {
   return target;
 };
 
+var slicedToArray = function () {
+  function sliceIterator(arr, i) {
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"]) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  return function (arr, i) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else if (Symbol.iterator in Object(arr)) {
+      return sliceIterator(arr, i);
+    } else {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+  };
+}();
+
 var TextElement = function TextElement(_ref) {
     var text = _ref.text,
         theme = _ref.theme;
@@ -2523,17 +2561,36 @@ function isTextElement(elements) {
     return elements.length === 1 && elements[0].type === "text";
 }
 
-var Element = function Element(_ref) {
+var Element = memo(function (_ref) {
     var name = _ref.name,
         elements = _ref.elements,
         attributes = _ref.attributes,
         theme = _ref.theme,
         indentation = _ref.indentation,
-        indentSize = _ref.indentSize;
+        indentSize = _ref.indentSize,
+        collapsible = _ref.collapsible;
+
+    var _useState = useState(false),
+        _useState2 = slicedToArray(_useState, 2),
+        collapsed = _useState2[0],
+        toggleCollapse = _useState2[1];
+
+    var cursor = collapsible && elements ? 'pointer' : 'text';
 
     return React.createElement(
         'div',
-        { style: { whiteSpace: 'pre' } },
+        {
+            style: { whiteSpace: 'pre', cursor: cursor },
+            onClick: function onClick(event) {
+                if (!collapsible || !elements) {
+                    return;
+                }
+                event.stopPropagation();
+                event.preventDefault();
+
+                toggleCollapse(!collapsed);
+            }
+        },
         React.createElement(
             'span',
             { style: { color: theme.separatorColor } },
@@ -2544,17 +2601,17 @@ var Element = function Element(_ref) {
             { style: { color: theme.tagColor } },
             name
         ),
-        React.createElement(Attributes, { attributes: attributes, theme: theme }),
+        !collapsed && React.createElement(Attributes, { attributes: attributes, theme: theme }),
         React.createElement(
             'span',
             { style: { color: theme.separatorColor } },
             elements ? '>' : '/>'
         ),
-        elements && React.createElement(Elements, { elements: elements, theme: theme, indentation: indentation + getIndentationString(indentSize), indentSize: indentSize }),
+        elements && !collapsed && React.createElement(Elements, { elements: elements, theme: theme, indentation: indentation + getIndentationString(indentSize), indentSize: indentSize, collapsible: collapsible }),
         elements && React.createElement(
             'span',
             { style: { color: theme.separatorColor } },
-            (isTextElement(elements) ? "" : indentation) + '</'
+            (isTextElement(elements) || collapsed ? "" : indentation) + '</'
         ),
         elements && React.createElement(
             'span',
@@ -2567,7 +2624,7 @@ var Element = function Element(_ref) {
             ">"
         )
     );
-};
+});
 
 Element.propTypes = {
     name: PropTypes.string.isRequired,
@@ -2575,16 +2632,17 @@ Element.propTypes = {
     attributes: PropTypes.object,
     theme: PropTypes.object.isRequired,
     indentation: PropTypes.string.isRequired,
-    indentSize: PropTypes.number.isRequired
+    indentSize: PropTypes.number.isRequired,
+    collapsible: PropTypes.bool.isRequired
 };
 
-var getElement = function getElement(theme, indentation, indentSize) {
+var getElement = function getElement(theme, indentation, indentSize, collapsible) {
     return function (element, index) {
         switch (element.type) {
             case "text":
                 return React.createElement(TextElement, { key: 'el-' + index, text: element.text, theme: theme });
             case "element":
-                return React.createElement(Element, { key: 'el-' + index, name: element.name, elements: element.elements, attributes: element.attributes, theme: theme, indentation: indentation, indentSize: indentSize });
+                return React.createElement(Element, { key: 'el-' + index, name: element.name, elements: element.elements, attributes: element.attributes, theme: theme, indentation: indentation, indentSize: indentSize, collapsible: collapsible });
             case "comment":
                 return React.createElement(CommentElement, { key: 'el-' + index, comment: element.comment, theme: theme, indentation: indentation });
             case "cdata":
@@ -2597,20 +2655,22 @@ var getElement = function getElement(theme, indentation, indentSize) {
     };
 };
 
-var Elements = function Elements(_ref2) {
+var Elements = memo(function (_ref2) {
     var elements = _ref2.elements,
         theme = _ref2.theme,
         indentation = _ref2.indentation,
-        indentSize = _ref2.indentSize;
+        indentSize = _ref2.indentSize,
+        collapsible = _ref2.collapsible;
 
-    return elements.map(getElement(theme, indentation, indentSize));
-};
+    return elements.map(getElement(theme, indentation, indentSize, collapsible));
+});
 
 Elements.propTypes = {
     elements: PropTypes.arrayOf(PropTypes.object),
     theme: PropTypes.object.isRequired,
     indentation: PropTypes.string.isRequired,
-    indentSize: PropTypes.number.isRequired
+    indentSize: PropTypes.number.isRequired,
+    collapsible: PropTypes.bool.isRequired
 };
 
 var defaultTheme = {
@@ -2635,7 +2695,8 @@ var XMLViewer = function XMLViewer(_ref) {
       theme = _ref.theme,
       indentSize = _ref.indentSize,
       invalidXml = _ref.invalidXml,
-      props = objectWithoutProperties(_ref, ['xml', 'theme', 'indentSize', 'invalidXml']);
+      collapsible = _ref.collapsible,
+      props = objectWithoutProperties(_ref, ['xml', 'theme', 'indentSize', 'invalidXml', 'collapsible']);
 
   var json = null;
   var customTheme = _extends({}, defaultTheme, theme);
@@ -2653,7 +2714,7 @@ var XMLViewer = function XMLViewer(_ref) {
     'div',
     props,
     json.declaration && React.createElement(DeclarationElement, { theme: customTheme, attributes: json.declaration.attributes }),
-    React.createElement(Elements, { elements: json.elements, theme: customTheme, indentSize: indentSize, indentation: '' })
+    React.createElement(Elements, { elements: json.elements, theme: customTheme, indentSize: indentSize, indentation: '', collapsible: collapsible })
   );
 };
 
@@ -2661,13 +2722,15 @@ XMLViewer.propTypes = {
   xml: PropTypes.string.isRequired,
   theme: PropTypes.object,
   indentSize: PropTypes.number,
-  invalidXml: PropTypes.node
+  invalidXml: PropTypes.node,
+  collapsible: PropTypes.bool
 };
 
 XMLViewer.defaultProps = {
   theme: {},
   indentSize: 2,
-  invalidXml: defaultInvalidXml
+  invalidXml: defaultInvalidXml,
+  collapsible: false
 };
 
 export default XMLViewer;
