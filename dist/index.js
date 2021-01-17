@@ -4,7 +4,8 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var stream = _interopDefault(require('stream'));
 var string_decoder = _interopDefault(require('string_decoder'));
-var React = _interopDefault(require('react'));
+var React = require('react');
+var React__default = _interopDefault(React);
 var PropTypes = _interopDefault(require('prop-types'));
 
 function createCommonjsModule(fn, module) {
@@ -2337,20 +2338,20 @@ var Attributes = function Attributes(_ref) {
     var overflow = theme.overflowBreak ? { overflowWrap: 'break-word', whiteSpace: 'normal' } : {};
 
     for (var key in attributes) {
-        attributeList.push(React.createElement(
+        attributeList.push(React__default.createElement(
             'span',
             { key: 'attr-' + key + '[' + attributes[key] + ']' },
-            React.createElement(
+            React__default.createElement(
                 'span',
                 { style: { color: theme.attributeKeyColor } },
                 ' ' + key
             ),
-            React.createElement(
+            React__default.createElement(
                 'span',
                 { style: { color: theme.separatorColor } },
                 "="
             ),
-            React.createElement(
+            React__default.createElement(
                 'span',
                 { style: { color: theme.attributeValueColor } },
                 '"' + attributes[key] + '"'
@@ -2358,7 +2359,7 @@ var Attributes = function Attributes(_ref) {
         ));
     }
 
-    return React.createElement(
+    return React__default.createElement(
         'span',
         { style: overflow },
         attributeList
@@ -2374,21 +2375,21 @@ var DeclarationElement = function DeclarationElement(_ref) {
     var attributes = _ref.attributes,
         theme = _ref.theme;
 
-    return React.createElement(
+    return React__default.createElement(
         'div',
         null,
-        React.createElement(
+        React__default.createElement(
             'span',
             { style: { color: theme.separatorColor } },
             '<?'
         ),
-        React.createElement(
+        React__default.createElement(
             'span',
             { style: { color: theme.tagColor } },
             "xml"
         ),
-        React.createElement(Attributes, { attributes: attributes, theme: theme }),
-        React.createElement(
+        React__default.createElement(Attributes, { attributes: attributes, theme: theme }),
+        React__default.createElement(
             'span',
             { style: { color: theme.separatorColor } },
             '?>'
@@ -2406,7 +2407,7 @@ var CdataElement = function CdataElement(_ref) {
         theme = _ref.theme,
         indentation = _ref.indentation;
 
-    return React.createElement(
+    return React__default.createElement(
         'div',
         { style: { color: theme.cdataColor } },
         indentation + '<![CDATA[' + cdata + ']]>'
@@ -2424,7 +2425,7 @@ var CommentElement = function CommentElement(_ref) {
         theme = _ref.theme,
         indentation = _ref.indentation;
 
-    return React.createElement(
+    return React__default.createElement(
         'div',
         { style: { color: theme.commentColor } },
         indentation + '<!-- ' + comment + ' -->'
@@ -2443,25 +2444,25 @@ var InstructionElement = function InstructionElement(_ref) {
         theme = _ref.theme,
         indentation = _ref.indentation;
 
-    return React.createElement(
+    return React__default.createElement(
         'div',
         null,
-        React.createElement(
+        React__default.createElement(
             'span',
             { style: { color: theme.separatorColor } },
             indentation + '<?'
         ),
-        React.createElement(
+        React__default.createElement(
             'span',
             { style: { color: theme.tagColor } },
             name
         ),
-        React.createElement(
+        React__default.createElement(
             'span',
             { style: { color: theme.attributeKeyColor } },
             ' ' + instruction
         ),
-        React.createElement(
+        React__default.createElement(
             'span',
             { style: { color: theme.separatorColor } },
             '?>'
@@ -2502,12 +2503,50 @@ var objectWithoutProperties = function (obj, keys) {
   return target;
 };
 
+var slicedToArray = function () {
+  function sliceIterator(arr, i) {
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"]) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  return function (arr, i) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else if (Symbol.iterator in Object(arr)) {
+      return sliceIterator(arr, i);
+    } else {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+  };
+}();
+
 var TextElement = function TextElement(_ref) {
     var text = _ref.text,
         theme = _ref.theme;
 
     var overflow = theme.overflowBreak ? { overflowWrap: 'break-word', whiteSpace: 'normal' } : {};
-    return React.createElement(
+    return React__default.createElement(
         'span',
         { style: _extends({ color: theme.textColor }, overflow) },
         text
@@ -2527,51 +2566,70 @@ function isTextElement(elements) {
     return elements.length === 1 && elements[0].type === "text";
 }
 
-var Element = function Element(_ref) {
+var Element = React.memo(function (_ref) {
     var name = _ref.name,
         elements = _ref.elements,
         attributes = _ref.attributes,
         theme = _ref.theme,
         indentation = _ref.indentation,
-        indentSize = _ref.indentSize;
+        indentSize = _ref.indentSize,
+        collapsible = _ref.collapsible;
 
-    return React.createElement(
+    var _useState = React.useState(false),
+        _useState2 = slicedToArray(_useState, 2),
+        collapsed = _useState2[0],
+        toggleCollapse = _useState2[1];
+
+    var cursor = collapsible && elements ? 'pointer' : 'text';
+
+    return React__default.createElement(
         'div',
-        { style: { whiteSpace: 'pre' } },
-        React.createElement(
+        {
+            style: { whiteSpace: 'pre', cursor: cursor },
+            onClick: function onClick(event) {
+                if (!collapsible || !elements) {
+                    return;
+                }
+                event.stopPropagation();
+                event.preventDefault();
+
+                toggleCollapse(!collapsed);
+            }
+        },
+        React__default.createElement(
             'span',
             { style: { color: theme.separatorColor } },
             indentation + '<'
         ),
-        React.createElement(
+        React__default.createElement(
             'span',
             { style: { color: theme.tagColor } },
             name
         ),
-        React.createElement(Attributes, { attributes: attributes, theme: theme }),
-        React.createElement(
+        !collapsed && React__default.createElement(Attributes, { attributes: attributes, theme: theme }),
+        React__default.createElement(
             'span',
             { style: { color: theme.separatorColor } },
             elements ? '>' : '/>'
         ),
-        elements && React.createElement(Elements, { elements: elements, theme: theme, indentation: indentation + getIndentationString(indentSize), indentSize: indentSize }),
-        elements && React.createElement(
+        elements && !collapsed && React__default.createElement(Elements, { elements: elements, theme: theme, indentation: indentation + getIndentationString(indentSize), indentSize: indentSize, collapsible: collapsible }),
+        elements && React__default.createElement(
             'span',
             { style: { color: theme.separatorColor } },
-            (isTextElement(elements) ? "" : indentation) + '</'
+            (isTextElement(elements) || collapsed ? "" : indentation) + '</'
         ),
-        elements && React.createElement(
+        elements && React__default.createElement(
             'span',
             { style: { color: theme.tagColor } },
             name
         ),
-        elements && React.createElement(
+        elements && React__default.createElement(
             'span',
             { style: { color: theme.separatorColor } },
             ">"
         )
     );
-};
+});
 
 Element.propTypes = {
     name: PropTypes.string.isRequired,
@@ -2579,42 +2637,45 @@ Element.propTypes = {
     attributes: PropTypes.object,
     theme: PropTypes.object.isRequired,
     indentation: PropTypes.string.isRequired,
-    indentSize: PropTypes.number.isRequired
+    indentSize: PropTypes.number.isRequired,
+    collapsible: PropTypes.bool.isRequired
 };
 
-var getElement = function getElement(theme, indentation, indentSize) {
+var getElement = function getElement(theme, indentation, indentSize, collapsible) {
     return function (element, index) {
         switch (element.type) {
             case "text":
-                return React.createElement(TextElement, { key: 'el-' + index, text: element.text, theme: theme });
+                return React__default.createElement(TextElement, { key: 'el-' + index, text: element.text, theme: theme });
             case "element":
-                return React.createElement(Element, { key: 'el-' + index, name: element.name, elements: element.elements, attributes: element.attributes, theme: theme, indentation: indentation, indentSize: indentSize });
+                return React__default.createElement(Element, { key: 'el-' + index, name: element.name, elements: element.elements, attributes: element.attributes, theme: theme, indentation: indentation, indentSize: indentSize, collapsible: collapsible });
             case "comment":
-                return React.createElement(CommentElement, { key: 'el-' + index, comment: element.comment, theme: theme, indentation: indentation });
+                return React__default.createElement(CommentElement, { key: 'el-' + index, comment: element.comment, theme: theme, indentation: indentation });
             case "cdata":
-                return React.createElement(CdataElement, { key: 'el-' + index, cdata: element.cdata, theme: theme, indentation: indentation });
+                return React__default.createElement(CdataElement, { key: 'el-' + index, cdata: element.cdata, theme: theme, indentation: indentation });
             case "instruction":
-                return React.createElement(InstructionElement, { key: 'el-' + index, instruction: element.instruction, name: element.name, theme: theme, indentation: indentation });
+                return React__default.createElement(InstructionElement, { key: 'el-' + index, instruction: element.instruction, name: element.name, theme: theme, indentation: indentation });
             default:
                 return null;
         }
     };
 };
 
-var Elements = function Elements(_ref2) {
+var Elements = React.memo(function (_ref2) {
     var elements = _ref2.elements,
         theme = _ref2.theme,
         indentation = _ref2.indentation,
-        indentSize = _ref2.indentSize;
+        indentSize = _ref2.indentSize,
+        collapsible = _ref2.collapsible;
 
-    return elements.map(getElement(theme, indentation, indentSize));
-};
+    return elements.map(getElement(theme, indentation, indentSize, collapsible));
+});
 
 Elements.propTypes = {
     elements: PropTypes.arrayOf(PropTypes.object),
     theme: PropTypes.object.isRequired,
     indentation: PropTypes.string.isRequired,
-    indentSize: PropTypes.number.isRequired
+    indentSize: PropTypes.number.isRequired,
+    collapsible: PropTypes.bool.isRequired
 };
 
 var defaultTheme = {
@@ -2628,7 +2689,7 @@ var defaultTheme = {
   overflowBreak: false
 };
 
-var defaultInvalidXml = React.createElement(
+var defaultInvalidXml = React__default.createElement(
   'div',
   null,
   'Invalid XML!'
@@ -2639,7 +2700,8 @@ var XMLViewer = function XMLViewer(_ref) {
       theme = _ref.theme,
       indentSize = _ref.indentSize,
       invalidXml = _ref.invalidXml,
-      props = objectWithoutProperties(_ref, ['xml', 'theme', 'indentSize', 'invalidXml']);
+      collapsible = _ref.collapsible,
+      props = objectWithoutProperties(_ref, ['xml', 'theme', 'indentSize', 'invalidXml', 'collapsible']);
 
   var json = null;
   var customTheme = _extends({}, defaultTheme, theme);
@@ -2653,11 +2715,11 @@ var XMLViewer = function XMLViewer(_ref) {
     return invalidXml;
   }
 
-  return React.createElement(
+  return React__default.createElement(
     'div',
     props,
-    json.declaration && React.createElement(DeclarationElement, { theme: customTheme, attributes: json.declaration.attributes }),
-    React.createElement(Elements, { elements: json.elements, theme: customTheme, indentSize: indentSize, indentation: '' })
+    json.declaration && React__default.createElement(DeclarationElement, { theme: customTheme, attributes: json.declaration.attributes }),
+    React__default.createElement(Elements, { elements: json.elements, theme: customTheme, indentSize: indentSize, indentation: '', collapsible: collapsible })
   );
 };
 
@@ -2665,13 +2727,15 @@ XMLViewer.propTypes = {
   xml: PropTypes.string.isRequired,
   theme: PropTypes.object,
   indentSize: PropTypes.number,
-  invalidXml: PropTypes.node
+  invalidXml: PropTypes.node,
+  collapsible: PropTypes.bool
 };
 
 XMLViewer.defaultProps = {
   theme: {},
   indentSize: 2,
-  invalidXml: defaultInvalidXml
+  invalidXml: defaultInvalidXml,
+  collapsible: false
 };
 
 module.exports = XMLViewer;
