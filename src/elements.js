@@ -16,10 +16,7 @@ function isTextElement(elements) {
 }
 
 function onSelectText(e) {
-    const selection = window.getSelection().toString();
-    if(selection !== '') {
-        e.stopPropagation()
-    }
+    e.stopPropagation()
 }
 
 const Element = memo(({ name, elements, attributes, theme, indentation, indentSize, collapsible }) => {
