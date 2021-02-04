@@ -8,7 +8,7 @@ export default class App extends Component {
   render () {
     return (
       <div>
-        <XMLViewer xml={xml} theme={{elementPadding: '100px'}}/>
+        <XMLViewer collapsible={true} xml={xml} theme={{elementPadding: '100px'}}/>
       </div>
     )
   }

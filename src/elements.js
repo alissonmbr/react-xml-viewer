@@ -15,6 +15,13 @@ function isTextElement(elements) {
     return elements.length === 1 && elements[0].type === "text";
 }
 
+function onSelectText(e) {
+    const selection = window.getSelection().toString();
+    if(selection !== '') {
+        e.stopPropagation()
+    }
+}
+
 const Element = memo(({ name, elements, attributes, theme, indentation, indentSize, collapsible }) => {
     const [collapsed, toggleCollapse] = useState(false);
 
@@ -37,7 +44,7 @@ const Element = memo(({ name, elements, attributes, theme, indentation, indentSi
             <span style={{ color: theme.tagColor }}>{name}</span>
             {!collapsed && <Attributes attributes={attributes} theme={theme} /> }
             <span style={{ color: theme.separatorColor }}>{(elements ? '>' : '/>')}</span>
-            {elements && !collapsed && <Elements elements={elements} theme={theme} indentation={indentation + getIndentationString(indentSize)} indentSize={indentSize} collapsible={collapsible} />}
+            {elements && !collapsed && <span onClick={onSelectText}><Elements elements={elements} theme={theme} indentation={indentation + getIndentationString(indentSize)} indentSize={indentSize} collapsible={collapsible} /></span>}
             {elements && <span style={{ color: theme.separatorColor }}>{`${(isTextElement(elements) || collapsed) ? "" : indentation}</`}</span>}
             {elements && <span style={{ color: theme.tagColor }}>{name}</span>}
             {elements && <span style={{ color: theme.separatorColor }}>{">"}</span>}
