@@ -15,6 +15,19 @@ function isTextElement(elements) {
     return elements.length === 1 && elements[0].type === "text";
 }
 
+function getSelectedText() {
+    if (window.getSelection) {
+        return window.getSelection().toString();
+    } else if (document.selection) {
+        return document.selection.createRange().text;
+    }
+    return '';
+}
+
+function onSelectText(e) {
+    e.stopPropagation()
+}
+
 const Element = memo(({ name, elements, attributes, theme, indentation, indentSize, collapsible }) => {
     const [collapsed, toggleCollapse] = useState(false);
 
@@ -30,14 +43,17 @@ const Element = memo(({ name, elements, attributes, theme, indentation, indentSi
                 event.stopPropagation();
                 event.preventDefault();
 
-                toggleCollapse(!collapsed);
+                if(getSelectedText() === '') {
+                    toggleCollapse(!collapsed);
+                }
+
             }}
         >
             <span style={{ color: theme.separatorColor }}>{`${indentation}<`}</span>
             <span style={{ color: theme.tagColor }}>{name}</span>
             {!collapsed && <Attributes attributes={attributes} theme={theme} /> }
             <span style={{ color: theme.separatorColor }}>{(elements ? '>' : '/>')}</span>
-            {elements && !collapsed && <Elements elements={elements} theme={theme} indentation={indentation + getIndentationString(indentSize)} indentSize={indentSize} collapsible={collapsible} />}
+            {elements && !collapsed && <span onClick={onSelectText}><Elements elements={elements} theme={theme} indentation={indentation + getIndentationString(indentSize)} indentSize={indentSize} collapsible={collapsible} /></span>}
             {elements && <span style={{ color: theme.separatorColor }}>{`${(isTextElement(elements) || collapsed) ? "" : indentation}</`}</span>}
             {elements && <span style={{ color: theme.tagColor }}>{name}</span>}
             {elements && <span style={{ color: theme.separatorColor }}>{">"}</span>}
