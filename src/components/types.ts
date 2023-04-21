@@ -30,9 +30,9 @@ export interface Theme {
    */
   cdataColor?: string;
   /**
-   *
+   * @default monospace
    */
-  overflowBreak?: boolean;
+  fontFamily?: string;
 }
 
 export interface XMLViewerProps {

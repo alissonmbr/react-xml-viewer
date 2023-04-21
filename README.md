@@ -63,7 +63,6 @@ When tag is collapsed its content and attributes are hidden. Only <tag></tag> is
 | separatorColor | color | #333 | set the separators colors (`<, >, </, />, =, <?, ?>`)
 | tagColor | color | #d43900 | set the tag name color (`<tag-name />`) |
 | textColor | color | #333 | set the text color (`<tag>Text</tag>`)|
-| overflowBreak | bool | false | adjust the xml to fit in the parent width without overflowing|
 
 **Example**:
 Changing attribute key and value color
