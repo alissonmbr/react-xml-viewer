@@ -1,14 +1,13 @@
-import { useContext } from "react";
-import { XMLViewerContext } from "../../xml-viewer-context";
-import { AttributesObject } from "../../types";
+import { useXMLViewerContext } from 'context/xml-viewer-context';
+import { AttributesObject } from 'types';
 
 export interface AttributesProps {
   attributes?: AttributesObject;
 }
 
-export default function Attributes(props: AttributesProps) {
+export function Attributes(props: AttributesProps) {
   const { attributes } = props;
-  const { theme } = useContext(XMLViewerContext);
+  const { theme } = useXMLViewerContext();
 
   if (!attributes) {
     return null;

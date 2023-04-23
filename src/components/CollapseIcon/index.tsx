@@ -1,5 +1,5 @@
-import { useXMLViewerContext } from "../../xml-viewer-context";
-import { ReactComponent as Caret} from "../../assets/svg/caret-right.svg";
+import { ReactComponent as Caret } from 'assets/svg/caret-right.svg';
+import { useXMLViewerContext } from 'context/xml-viewer-context';
 
 export interface CollapseIconProps {
   collapsed: boolean;
@@ -10,11 +10,11 @@ export function CollapseIcon(props: CollapseIconProps): JSX.Element | null {
   const { collapsed } = props;
 
   return collapsible ? (
-    <span style={{ position: "relative" }}>
-      <span style={{ position: "absolute", right: "0", border: 0, padding: 0, background: "none" }}>
+    <span style={{ position: 'relative' }}>
+      <span style={{ position: 'absolute', right: '0', border: 0, padding: 0, background: 'none' }}>
         <Caret
           fill={theme.separatorColor}
-          style={{ transform: `rotate(${collapsed ? 0 : 90}deg)`, transition: "transform 0.2s" }}
+          style={{ transform: `rotate(${collapsed ? 0 : 90}deg)`, transition: 'transform 0.2s' }}
         />
       </span>
     </span>

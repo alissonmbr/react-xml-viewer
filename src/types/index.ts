@@ -1,5 +1,5 @@
-import { Theme } from "../components/types";
-import { ATTRIBUTE_TEXT } from "../contants";
+import { Theme } from 'components/types';
+import { ATTRIBUTE_TEXT } from 'contants';
 
 export interface ElementText {
   [ATTRIBUTE_TEXT]: string;
@@ -13,7 +13,7 @@ export type ElementObject = Record<string, AttributesObject | Element[]>;
 
 export type Element = ElementObject | ElementText;
 
-export interface XmlViewerContext {
+export interface IXmlViewerContext {
   collapsible: boolean;
   indentSize: number;
   theme: Theme;

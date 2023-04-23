@@ -43,7 +43,8 @@ export interface XMLViewerProps {
    */
   theme?: Theme;
   /**
-   *
+   * 
+   * @default 2
    */
   indentSize?: number;
   /**
@@ -51,7 +52,7 @@ export interface XMLViewerProps {
    */
   invalidXml?: JSX.Element;
   /**
-   *
+   * @default false
    */
   collapsible?: boolean;
 }

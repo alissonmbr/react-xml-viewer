@@ -1,1 +1,1 @@
-export * from "./XMLViewer";
+export * from './XMLViewer';

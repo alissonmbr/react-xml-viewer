@@ -1,11 +1,11 @@
-import { useMemo } from "react";
-import { XMLParser } from "fast-xml-parser";
-import { ATTRIBUTE_CDATA, ATTRIBUTE_COMMENT } from "../contants";
+import { ATTRIBUTE_CDATA, ATTRIBUTE_COMMENT } from 'contants';
+import { XMLParser } from 'fast-xml-parser';
+import { useMemo } from 'react';
 
 const parser = new XMLParser({
   preserveOrder: true,
   ignoreAttributes: false,
-  attributeNamePrefix: "",
+  attributeNamePrefix: '',
   allowBooleanAttributes: true,
   commentPropName: ATTRIBUTE_COMMENT,
   cdataPropName: ATTRIBUTE_CDATA,

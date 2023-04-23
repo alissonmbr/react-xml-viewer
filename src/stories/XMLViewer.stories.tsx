@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import XMLViewer from '../components/XMLViewer';
+import XMLViewer from 'components/XMLViewer';
+import { defaultTheme } from 'contants';
 
-const xmlString =`
+const xmlString = `
 <?xml version="1.0"?>
 <?test?>
 <example
@@ -65,7 +66,14 @@ const xmlString =`
 const meta = {
   title: 'ReactXmlViewer',
   component: XMLViewer,
-  tags: ['autodocs'],
+  argTypes: {
+    invalidXml: {
+      table: {
+         
+        disable: true,
+      },
+    },
+  },
 } satisfies Meta<typeof XMLViewer>;
 
 export default meta;
@@ -73,8 +81,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-   xml: xmlString
+    xml: xmlString,
+    indentSize: 2,
+    collapsible: false,
+    theme: defaultTheme,
   },
 };
-
-
