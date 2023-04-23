@@ -1,11 +1,5 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import XMLViewer from "../components/XMLViewer";
-
-export default {
-  title: "ReactXmlViewer",
-  component: XMLViewer
-} as ComponentMeta<typeof XMLViewer>;
+import type { Meta, StoryObj } from '@storybook/react';
+import XMLViewer from '../components/XMLViewer';
 
 const xmlString =`
 <?xml version="1.0"?>
@@ -68,9 +62,19 @@ const xmlString =`
 </example>
 `;
 
-const Template: ComponentStory<typeof XMLViewer> = args => <XMLViewer {...args} />;
+const meta = {
+  title: 'ReactXmlViewer',
+  component: XMLViewer,
+  tags: ['autodocs'],
+} satisfies Meta<typeof XMLViewer>;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  xml: xmlString
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+  args: {
+   xml: xmlString
+  },
 };
+
+

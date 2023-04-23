@@ -18,7 +18,8 @@ export default function useXMLViewer(xml: string) {
       const json = parser.parse(xml);
       return { json, valid: true };
     } catch (e) {
-      return { json: null, valid: false, errorMessage: e.message };
+      const error = e as Error;
+      return { json: null, valid: false, errorMessage: `Fail to parse: ${error.message}` };
     }
   }, [xml]);
 }

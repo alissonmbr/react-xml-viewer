@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface Theme {
   /**
    *
@@ -51,7 +49,7 @@ export interface XMLViewerProps {
   /**
    *
    */
-  invalidXml?: ReactNode;
+  invalidXml?: JSX.Element;
   /**
    *
    */

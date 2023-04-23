@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { defaultTheme } from "../contants";
 import useXMLViewer from "../hooks/useXMLViewer";
 import { XMLViewerContext } from "../xml-viewer-context";
 import { Theme, XMLViewerProps } from "./types";
 import _isEqual from "lodash/isEqual";
 import Elements from "./Elements";
+import { InvalidXml } from "./InvalidXml";
 
 export default function XMLViewer(props: XMLViewerProps): JSX.Element {
   const { theme: customTheme, xml, collapsible = false, indentSize = 2, invalidXml } = props;
@@ -20,7 +21,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
   }, [customTheme]);
 
   if (!valid) {
-    return <div>Invalid</div>;
+    return !!invalidXml ? invalidXml : <InvalidXml />;
   }
 
   return (

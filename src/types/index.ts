@@ -1,4 +1,4 @@
-import { Theme, XMLViewerProps } from "../components/types";
+import { Theme } from "../components/types";
 import { ATTRIBUTE_TEXT } from "../contants";
 
 export interface ElementText {
@@ -9,8 +9,12 @@ export type AttributeValue = string | number | boolean;
 
 export type AttributesObject = Record<string, AttributeValue>;
 
-export type ElementObject = Record<string, AttributesObject | Element[]>
+export type ElementObject = Record<string, AttributesObject | Element[]>;
 
 export type Element = ElementObject | ElementText;
 
-export type XmlViewerContext = Pick<XMLViewerProps, 'collapsible' | 'indentSize' | 'theme'>
+export interface XmlViewerContext {
+  collapsible: boolean;
+  indentSize: number;
+  theme: Theme;
+}

@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
 import { Element, AttributesObject, ElementObject } from "../../types";
 import { ElementsProps } from "./types";
 import _omit from "lodash/omit";
@@ -12,7 +12,8 @@ import {
 } from "../../contants";
 import Attributes from "../Attributes";
 import { XMLViewerContext } from "../../xml-viewer-context";
-import Caret from "../../assets/svg/caret-right.svg";
+import { CollapseIcon } from "../CollapseIcon";
+import { useCollapsible } from "../../hooks/useCollapsible";
 
 function getIndentationString(size: number, level: number) {
   return new Array(level * size + 1).join(" ");
@@ -249,39 +250,5 @@ function Tag(props: TagProps) {
   );
 }
 
-function useCollapsible() {
-  const { collapsible } = useContext(XMLViewerContext);
-  const [collapsed, setCollapsed] = useState(false);
-  const toggleCollapsed = () => setCollapsed((currentCollapsed) => !currentCollapsed);
 
-  return {
-    collapsed,
-    buttonProps: !collapsible
-      ? {}
-      : {
-          onClick: toggleCollapsed,
-          role: "button",
-          style: { cursor: "pointer" },
-        },
-  };
-}
 
-export interface CollapseIconProps {
-  collapsed: boolean;
-}
-
-function CollapseIcon(props: CollapseIconProps) {
-  const { collapsible, theme } = useContext(XMLViewerContext);
-  const { collapsed } = props;
-
-  return collapsible ? (
-    <span style={{ position: "relative" }}>
-      <span style={{ position: "absolute", right: "0", border: 0, padding: 0, background: "none" }}>
-        <Caret
-          fill={theme.separatorColor}
-          style={{ transform: `rotate(${collapsed ? 0 : 90}deg)`, transition: "transform 0.2s" }}
-        />
-      </span>
-    </span>
-  ) : null;
-}

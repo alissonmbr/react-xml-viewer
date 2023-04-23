@@ -1,6 +1,10 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { XMLViewerContext } from "../../xml-viewer-context";
-import { AttributesProps } from "./types";
+import { AttributesObject } from "../../types";
+
+export interface AttributesProps {
+  attributes?: AttributesObject;
+}
 
 export default function Attributes(props: AttributesProps) {
   const { attributes } = props;
