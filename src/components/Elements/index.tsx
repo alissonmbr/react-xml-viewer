@@ -42,7 +42,7 @@ export function Elements(props: ElementsProps) {
             );
           case ATTRIBUTE_COMMENT:
             return (
-              <CommentTag key={key} isInline={isInline} indentation={indentation}>
+              <CommentTag key={key} isInline={isInline} indentation={indentation} level={level}>
                 <Elements elements={subElements as Element[]} level={level + 1} isText={false} />
               </CommentTag>
             );
@@ -70,6 +70,7 @@ export function Elements(props: ElementsProps) {
                 attributes={attributes}
                 isInline={isInline}
                 hasChildren={subElements.length > 0}
+                level={level}
               >
                 <Elements elements={subElements as Element[]} level={level + 1} />
               </Tag>

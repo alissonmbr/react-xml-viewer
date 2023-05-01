@@ -8,12 +8,19 @@ import { InvalidXml } from './InvalidXml';
 import { Theme, XMLViewerProps } from './types';
 
 export default function XMLViewer(props: XMLViewerProps): JSX.Element {
-  const { theme: customTheme, xml, collapsible = false, indentSize = 2, invalidXml } = props;
+  const {
+    theme: customTheme,
+    xml,
+    collapsible = false,
+    indentSize = 2,
+    invalidXml,
+    initalCollapsedDepth,
+  } = props;
   const [theme, setTheme] = useState<Theme>(() => ({ ...defaultTheme, ...customTheme }));
   const { json, valid } = useXMLViewer(xml);
   const context = useMemo(
-    () => ({ theme, collapsible, indentSize }),
-    [theme, collapsible, indentSize],
+    () => ({ theme, collapsible, indentSize, initalCollapsedDepth }),
+    [theme, collapsible, indentSize, initalCollapsedDepth],
   );
 
   useEffect(() => {

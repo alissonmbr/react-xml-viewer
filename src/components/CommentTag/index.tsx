@@ -7,12 +7,13 @@ export interface CommentTagProps {
   indentation: string;
   children: ReactNode;
   isInline: boolean;
+  level: number;
 }
 
 export function CommentTag(props: CommentTagProps) {
-  const { indentation, children, isInline } = props;
+  const { indentation, children, isInline, level } = props;
   const { theme } = useXMLViewerContext();
-  const { collapsed, buttonProps } = useCollapsible();
+  const { collapsed, buttonProps } = useCollapsible(level);
 
   return (
     <div style={{ color: theme.commentColor }}>

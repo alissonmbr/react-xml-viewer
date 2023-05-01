@@ -55,4 +55,8 @@ export interface XMLViewerProps {
    * @default false
    */
   collapsible?: boolean;
+  /**
+   * 
+   */
+  initalCollapsedDepth?: number;
 }

@@ -1,10 +1,19 @@
 import { useXMLViewerContext } from 'context/xml-viewer-context';
-import { useState } from 'react';
+import _isNil from 'lodash/isNil';
+import { useEffect, useState } from 'react';
 
-export function useCollapsible() {
-  const { collapsible } = useXMLViewerContext();
-  const [collapsed, setCollapsed] = useState(false);
+export function useCollapsible(level: number) {
+  const { collapsible, initalCollapsedDepth } = useXMLViewerContext();
+  const [collapsed, setCollapsed] = useState(() =>
+    _isNil(initalCollapsedDepth) || !collapsible ? false : level >= initalCollapsedDepth,
+  );
   const toggleCollapsed = () => setCollapsed((currentCollapsed) => !currentCollapsed);
+
+  useEffect(() => {
+    setCollapsed(
+      _isNil(initalCollapsedDepth) || !collapsible ? false : level >= initalCollapsedDepth,
+    );
+  }, [initalCollapsedDepth, level, collapsible]);
 
   return {
     collapsed,

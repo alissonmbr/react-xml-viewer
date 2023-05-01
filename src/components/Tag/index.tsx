@@ -13,11 +13,12 @@ export interface TagProps {
   children: ReactNode;
   isInline: boolean;
   hasChildren: boolean;
+  level: number;
 }
 
 export function Tag(props: TagProps) {
-  const { indentation, tagKey, attributes, children, isInline, hasChildren } = props;
-  const { collapsed, buttonProps } = useCollapsible();
+  const { indentation, tagKey, attributes, children, isInline, hasChildren, level } = props;
+  const { collapsed, buttonProps } = useCollapsible(level);
   const { theme } = useXMLViewerContext();
 
   return (

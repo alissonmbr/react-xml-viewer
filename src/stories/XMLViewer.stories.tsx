@@ -83,7 +83,8 @@ export const Primary: Story = {
   args: {
     xml: xmlString,
     indentSize: 2,
-    collapsible: false,
+    collapsible: true,
     theme: defaultTheme,
+    initalCollapsedDepth: undefined
   },
 };
