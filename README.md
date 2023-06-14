@@ -6,13 +6,19 @@ Simple and configurable React component to prettify XMLs.
 
 <img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/master/example/example-ss.png" width="300"/>
 
-## Codesandbox demo
-<a href="https://codesandbox.io/s/react-xml-viewer-example-ir4zo">Demo</a>
+## Live demo
+<a href="https://codesandbox.io/s/react-xml-viewer-example-ir4zo">Code sandbox demo</a>
 
 ## Install
 
+#### npm
 ```bash
 npm install --save react-xml-viewer
+```
+
+#### yarn
+```bash
+yarn add react-xml-viewer
 ```
 
 ## Usage
@@ -52,18 +58,23 @@ When the xml is invalid, invalidXml component will be returned.
 Allow collapse/expand tags by click on them. When tag is collapsed its content and attributes are hidden. 
 **Default**: false
 
+### initalCollapsedDepth (number)
+When the **collapsible** is true, this set the level that will be started as collapsed. For example, if you want to everything starts as collapsed, set 0.
+**Default**: undefined
+
 ### theme (object)
 An object to customize the default theme.
 
 | Key | Type | Default | Description |
 | --- | ---- | ------- | ----------- |
-| attributeKeyColor | color | #2a7ab0 | set the attribute key color (`<tag attribute-key="hello" />`) |
-| attributeValueColor | color | #008000 | set the attribute value color (` <tag attr="Attribute value">`) |
-| cdataColor | color | #1D781D | set the cdata element color (`<![CDATA[some stuff]]>`) |
-| commentColor | color | #aaa | set the comment color (`<!-- this is a comment -->`)
-| separatorColor | color | #333 | set the separators colors (`<, >, </, />, =, <?, ?>`)
-| tagColor | color | #d43900 | set the tag name color (`<tag-name />`) |
-| textColor | color | #333 | set the text color (`<tag>Text</tag>`)|
+| attributeKeyColor | color | #2a7ab0 | Set the attribute key color (`<tag attribute-key="hello" />`) |
+| attributeValueColor | color | #008000 | Set the attribute value color (` <tag attr="Attribute value">`) |
+| cdataColor | color | #1D781D | Set the cdata element color (`<![CDATA[some stuff]]>`) |
+| commentColor | color | #aaa | Set the comment color (`<!-- this is a comment -->`)
+| fontFamily | font | monospace | Set the font family
+| separatorColor | color | #333 | Set the separators colors (`<, >, </, />, =, <?, ?>`)
+| tagColor | color | #d43900 | Set the tag name color (`<tag-name />`) |
+| textColor | color | #333 | Set the text color (`<tag>Text</tag>`)|
 
 **Example**:
 Changing attribute key and value color
@@ -77,14 +88,12 @@ const customTheme = {
   "attributeValueColor": "#000FF"
 }
 
-export default class App extends Component {
-  render () {
-    return (
-      <div>
-        <XMLViewer xml={xml} theme={customTheme} />
-      </div>
-    )
-  }
+export function App() {
+  return (
+    <div>
+      <XMLViewer xml={xml} theme={customTheme} />
+    </div>
+  )
 }
 ```
 
