@@ -1,8 +1,8 @@
 [Buy me a coffee ☕](https://www.buymeacoffee.com/alissonmbr)
 
-[![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer)
 
 # react-xml-viewer
+[![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer)
 Simple and configurable React component to prettify XMLs.
 
 
@@ -10,7 +10,7 @@ Simple and configurable React component to prettify XMLs.
 <img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/v2/example.png" width="300"/>
 
 ## Live demo
-<a href="https://codesandbox.io/s/react-xml-viewer-v2-example-6xh9yq">Code sandbox demo</a>
+[![Edit react-xml-view](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-xml-viewer-v2-example-6xh9yq)
 
 
 ## Install
@@ -33,14 +33,12 @@ import XMLViewer from 'react-xml-viewer'
 
 const xml = '<hello>World</hello>'
 
-export default class App extends Component {
-  render () {
+export function App() {
     return (
       <div>
         <XMLViewer xml={xml} />
       </div>
     )
-  }
 }
 ```
 

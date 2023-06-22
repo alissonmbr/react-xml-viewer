@@ -14,7 +14,7 @@ export function Attributes(props: AttributesProps) {
   }
 
   return (
-    <span className="rxv-attributes">
+    <span>
       {Object.entries(attributes).map(([key, value]) => (
         <span key={`attribute-${key}`}>
           <span style={{ color: theme.attributeKeyColor }}>{` ${key}`}</span>
