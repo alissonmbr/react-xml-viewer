@@ -1,6 +1,6 @@
 {
   "name": "react-xml-viewer",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.4",
   "description": "",
   "author": "alissonmbr",
   "license": "MIT",
@@ -31,8 +31,8 @@
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "react": ">= 16.8.4 < 18.0.0",
-    "react-dom": ">= 16.8.4 < 18.0.0"
+    "react": ">= 16.8.4",
+    "react-dom": ">= 16.8.4"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.18.6",

@@ -10,7 +10,7 @@ Simple and configurable React component to prettify XMLs.
 <img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/v2/example.png" width="300"/>
 
 ## Live demo
-<a href="https://codesandbox.io/s/react-xml-viewer-example-ir4zo">Code sandbox demo</a>
+<a href="https://codesandbox.io/s/react-xml-viewer-v2-example-6xh9yq">Code sandbox demo</a>
 
 
 ## Install
