@@ -1,4 +1,5 @@
 [Buy me a coffee ☕](https://www.buymeacoffee.com/alissonmbr)
+
 [![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer)
 
 # react-xml-viewer
