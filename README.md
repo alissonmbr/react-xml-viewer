@@ -2,8 +2,7 @@
 
 
 # react-xml-viewer
-
-[![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer)
+[![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer)\
 Simple and configurable React component to prettify XMLs.
 
 
@@ -45,30 +44,24 @@ export function App() {
 
 ## Props
 ### xml (string)
-A xml string to prettify.
-
-**Default**: undefined
-
+A xml string to prettify.\
+**Default**: undefined\
 **Example**: `<hello>World</hello>`
 
 ### indentSize (number)
-The size of the indentation.
-
+The size of the indentation.\
 **Default**: 2
 
 ### invalidXml (JSX.Element)
-When the xml is invalid, invalidXml component will be returned.
-
+When the xml is invalid, invalidXml component will be returned.\
 **Default**: `<div>Invalid XML!</div>`
 
 ### collapsible (boolean)
-Allow collapse/expand tags by click on them. When tag is collapsed its content and attributes are hidden.
-
+Allow collapse/expand tags by click on them. When tag is collapsed its content and attributes are hidden.\
 **Default**: false
 
 ### initalCollapsedDepth (number)
-When the **collapsible** is true, this set the level that will be started as collapsed. For example, if you want to everything starts as collapsed, set 0.
-
+When the **collapsible** is true, this set the level that will be started as collapsed. For example, if you want to everything starts as collapsed, set 0.\
 **Default**: undefined
 
 ### theme (object)
