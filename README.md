@@ -1,13 +1,16 @@
-# react-xml-viewer
-Simple and configurable React component to prettify XMLs.
->
-
+[Buy me a coffee ☕](https://www.buymeacoffee.com/alissonmbr)
 [![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer)
 
-<img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/master/example/example-ss.png" width="300"/>
+# react-xml-viewer
+Simple and configurable React component to prettify XMLs.
+
+
+
+<img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/v2/example.png" width="300"/>
 
 ## Live demo
 <a href="https://codesandbox.io/s/react-xml-viewer-example-ir4zo">Code sandbox demo</a>
+
 
 ## Install
 
