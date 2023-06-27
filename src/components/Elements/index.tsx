@@ -34,6 +34,7 @@ export function Elements(props: ElementsProps) {
           case ATTRIBUTE_TEXT:
             return (
               <TextElement
+                key={key}
                 text={subElements as string}
                 indentation={indentation}
                 hasSiblings={hasSiblings}

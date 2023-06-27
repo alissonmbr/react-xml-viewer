@@ -14,10 +14,7 @@ export function getIndentationString(size: number, level: number) {
 }
 
 export function hasBreakLines(elements: Element[] | string) {
-  if (typeof elements === 'string') {
-    return elements.includes('\n');
-  }
-  return false;
+  return typeof elements === 'string' && elements.includes('\n');
 }
 
 export function isInlineTextElement(elements: Element[] | string) {
