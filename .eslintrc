@@ -1,23 +1,38 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "extends": [
-    "standard",
-    "standard-react"
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "env": {
-    "es6": true
+    "browser": true,
+    "es2021": true,
+    "jest": true
   },
-  "plugins": [
-    "react"
-  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    },
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "jest"],
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
   },
   "rules": {
-    // don't force es6 functions to include space before paren
     "space-before-function-paren": 0,
-
-    // allow specifying true explicitly for boolean props
-    "react/jsx-boolean-value": 0
+    "react/jsx-boolean-value": 0,
+    "react/react-in-jsx-scope": "off",
+    "camelcase": "error",
+    "spaced-comment": "error",
+    "quotes": ["error", "single"],
+    "no-duplicate-imports": "error"
   }
 }
