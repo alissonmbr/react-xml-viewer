@@ -155,7 +155,6 @@ describe('XMLViewer', () => {
     expect(screen.getAllByText('level1')).toHaveLength(2);
     expect(screen.getByText('this should be collapsed')).toBeInTheDocument();
     expect(screen.queryByText('...')).toBeNull();
-    screen.debug();
   });
 
   it('should show custom invalid xml component', () => {

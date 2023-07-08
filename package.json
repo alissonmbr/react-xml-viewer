@@ -1,7 +1,7 @@
 {
   "name": "react-xml-viewer",
-  "version": "2.0.0-beta.4",
-  "description": "",
+  "version": "2.0.0",
+  "description": "Simple xml viewer component for React",
   "author": "alissonmbr",
   "license": "MIT",
   "repository": "alissonmbr/react-xml-viewer",
@@ -17,7 +17,7 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "engines": {
-    "node": ">=8",
+    "node": ">=12",
     "npm": ">=5"
   },
   "scripts": {
