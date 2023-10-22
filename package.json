@@ -13,7 +13,7 @@
     "formatter",
     "react"
   ],
-  "main": "dist/index.js",
+  "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "engines": {
