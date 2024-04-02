@@ -57,7 +57,7 @@ When the xml is invalid, invalidXml component will be returned.\
 **Default**: `<div>Invalid XML!</div>`
 
 ### className (string)
-An optional class name to be applied to the root element
+An optional class name to be applied to the root element.\
 **Default**: `''`
 
 ### collapsible (boolean)
