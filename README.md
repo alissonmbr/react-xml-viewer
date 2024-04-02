@@ -56,6 +56,10 @@ The size of the indentation.\
 When the xml is invalid, invalidXml component will be returned.\
 **Default**: `<div>Invalid XML!</div>`
 
+### className (string)
+An optional class name to be applied to the root element
+**Default**: `''`
+
 ### collapsible (boolean)
 Allow collapse/expand tags by click on them. When tag is collapsed its content and attributes are hidden.\
 **Default**: false
