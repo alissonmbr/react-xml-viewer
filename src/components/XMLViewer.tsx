@@ -11,6 +11,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
   const {
     theme: customTheme,
     xml,
+    className = '',
     collapsible = false,
     indentSize = 2,
     invalidXml,
@@ -37,7 +38,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
   return (
     <XMLViewerContext.Provider value={context}>
       <div
-        className="rxv-container"
+        className={`rxv-container ${className}`}
         style={{ whiteSpace: 'pre-wrap', fontFamily: theme.fontFamily, overflowWrap: 'break-word' }}
       >
         <Elements elements={json} />
