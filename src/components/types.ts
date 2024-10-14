@@ -52,6 +52,10 @@ export interface XMLViewerProps {
    */
   invalidXml?: JSX.Element;
   /**
+   * @default ''
+   */
+  className?: string;
+  /**
    * @default false
    */
   collapsible?: boolean;
