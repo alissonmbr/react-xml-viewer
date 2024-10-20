@@ -1,3 +1,23 @@
+## 2.0.3
+_Oct 20, 2024_
+
+- fix: xml validation
+- chore: added source map
+- chore: updated `fast-xml-parser` to 4.5.0
+
+## 2.0.2
+
+_Oct 14, 2024_
+
+- fix: exported types on package.json
+
+## 2.0.1
+
+_Oct 25, 2023_
+
+- fix: set main to the umd file
+- fix: wrong link to the example image
+
 ## 2.0.0
 
 _Jun 22, 2023_

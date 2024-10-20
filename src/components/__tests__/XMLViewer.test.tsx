@@ -69,7 +69,7 @@ describe('XMLViewer', () => {
   });
 
   it('should render invalid xml', () => {
-    const xml = '<?xml';
+    const xml = '!';
     render(<XMLViewer xml={xml} />);
     expect(screen.getByText('Invalid XML!')).toBeInTheDocument();
   });
