@@ -1,5 +1,5 @@
 import { ATTRIBUTE_CDATA, ATTRIBUTE_COMMENT } from 'contants';
-import { XMLParser } from 'fast-xml-parser';
+import { XMLParser, XMLValidator } from 'fast-xml-parser';
 import { useMemo } from 'react';
 
 const parser = new XMLParser({
@@ -15,7 +15,16 @@ const parser = new XMLParser({
 export default function useXMLViewer(xml: string) {
   return useMemo(() => {
     try {
+      if (!XMLValidator.validate(xml)) {
+        throw new Error('Invalid XML!');
+      }
+
       const json = parser.parse(xml);
+
+      if (typeof xml === 'string' && xml.trim().length > 0 && json.length === 0) {
+        throw new Error('Invalid XML!');
+      }
+
       return { json, valid: true };
     } catch (e) {
       const error = e as Error;

@@ -19,6 +19,7 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   build: {
+    sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'ReactXmlViewer',
