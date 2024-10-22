@@ -1,4 +1,12 @@
+## 2.0.4
+
+_Oct 22, 2024_
+
+- fix: typo initalCollapsedDepth > initialCollapsedDepth
+- chore: improved jsdoc for the props
+
 ## 2.0.3
+
 _Oct 20, 2024_
 
 - fix: xml validation

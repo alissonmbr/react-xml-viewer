@@ -3,17 +3,17 @@ import _isNil from 'lodash/isNil';
 import { useEffect, useState } from 'react';
 
 export function useCollapsible(level: number) {
-  const { collapsible, initalCollapsedDepth } = useXMLViewerContext();
+  const { collapsible, initialCollapsedDepth } = useXMLViewerContext();
   const [collapsed, setCollapsed] = useState(() =>
-    _isNil(initalCollapsedDepth) || !collapsible ? false : level >= initalCollapsedDepth,
+    _isNil(initialCollapsedDepth) || !collapsible ? false : level >= initialCollapsedDepth,
   );
   const toggleCollapsed = () => setCollapsed((currentCollapsed) => !currentCollapsed);
 
   useEffect(() => {
     setCollapsed(
-      _isNil(initalCollapsedDepth) || !collapsible ? false : level >= initalCollapsedDepth,
+      _isNil(initialCollapsedDepth) || !collapsible ? false : level >= initialCollapsedDepth,
     );
-  }, [initalCollapsedDepth, level, collapsible]);
+  }, [initialCollapsedDepth, level, collapsible]);
 
   return {
     collapsed,

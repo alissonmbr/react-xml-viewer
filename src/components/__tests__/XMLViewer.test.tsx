@@ -145,7 +145,7 @@ describe('XMLViewer', () => {
         </level1>
       </root>
     `
-    render(<XMLViewer xml={xml} collapsible initalCollapsedDepth={1} />);
+    render(<XMLViewer xml={xml} collapsible initialCollapsedDepth={1} />);
     expect(screen.getAllByText('root')).toHaveLength(2);
     expect(screen.getAllByText('level1')).toHaveLength(2);
     expect(screen.queryByText('this should be collapsed')).toBeNull();
