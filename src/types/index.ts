@@ -17,5 +17,5 @@ export interface IXmlViewerContext {
   collapsible: boolean;
   indentSize: number;
   theme: Theme;
-  initalCollapsedDepth?: number;
+  initialCollapsedDepth?: number;
 }

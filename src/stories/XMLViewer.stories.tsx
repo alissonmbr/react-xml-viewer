@@ -69,7 +69,6 @@ const meta = {
   argTypes: {
     invalidXml: {
       table: {
-         
         disable: true,
       },
     },
@@ -85,6 +84,6 @@ export const Primary: Story = {
     indentSize: 2,
     collapsible: true,
     theme: defaultTheme,
-    initalCollapsedDepth: undefined
+    initialCollapsedDepth: undefined,
   },
 };

@@ -60,7 +60,7 @@ When the xml is invalid, invalidXml component will be returned.\
 Allow collapse/expand tags by click on them. When tag is collapsed its content and attributes are hidden.\
 **Default**: false
 
-### initalCollapsedDepth (number)
+### initialCollapsedDepth (number)
 When the **collapsible** is true, this set the level that will be started as collapsed. For example, if you want to everything starts as collapsed, set 0.\
 **Default**: undefined
 

@@ -15,12 +15,18 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
     indentSize = 2,
     invalidXml,
     initalCollapsedDepth,
+    initialCollapsedDepth,
   } = props;
   const [theme, setTheme] = useState<Theme>(() => ({ ...defaultTheme, ...customTheme }));
   const { json, valid } = useXMLViewer(xml);
   const context = useMemo(
-    () => ({ theme, collapsible, indentSize, initalCollapsedDepth }),
-    [theme, collapsible, indentSize, initalCollapsedDepth],
+    () => ({
+      theme,
+      collapsible,
+      indentSize,
+      initialCollapsedDepth: initialCollapsedDepth ?? initalCollapsedDepth,
+    }),
+    [theme, collapsible, indentSize, initalCollapsedDepth, initialCollapsedDepth],
   );
 
   useEffect(() => {
