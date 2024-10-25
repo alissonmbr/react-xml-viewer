@@ -105,4 +105,6 @@ MIT © [alissonmbr](https://github.com/alissonmbr)
 
 ## Derived Projects
 
+A list of open-source projects using react-xml-viewer:
+
 - [panel-xml](https://github.com/awesome-panel/panel-xml): An XML widget for interactively exploring XML in Python notebooks and [Panel](https://panel.holoviz.org/reference/index.html) data apps.
