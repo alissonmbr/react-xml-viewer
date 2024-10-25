@@ -102,3 +102,7 @@ export function App() {
 ## License
 
 MIT © [alissonmbr](https://github.com/alissonmbr)
+
+## Derived Projects
+
+- [panel-xml](https://github.com/awesome-panel/panel-xml): An XML widget for interactively exploring XML in Python notebooks and [Panel](https://panel.holoviz.org/reference/index.html) data apps.
