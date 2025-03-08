@@ -1,5 +1,11 @@
 ## 2.0.4
 
+_Feb 25, 2025_
+
+- fix: react 19 compatibility
+
+## 2.0.4
+
 _Oct 22, 2024_
 
 - fix: typo initalCollapsedDepth > initialCollapsedDepth

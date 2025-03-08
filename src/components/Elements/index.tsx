@@ -12,9 +12,10 @@ export interface ElementsProps {
   elements: Element[];
   level?: number;
   isText?: boolean;
+  parentKey?: string;
 }
 export function Elements(props: ElementsProps) {
-  const { elements, level = 0, isText = true } = props;
+  const { elements, level = 0, isText = true, parentKey = '' } = props;
   const { indentSize } = useXMLViewerContext();
 
   if (!Array.isArray(elements) || elements.length === 0) {
@@ -27,7 +28,7 @@ export function Elements(props: ElementsProps) {
         const { tagKey, attributes, subElements, type } = getTagProps(element);
         const hasSiblings = elements.length > 1;
         const indentation = getIndentationString(indentSize, level);
-        const key = `${level}-${index}`;
+        const key = `${parentKey}-${level + 1}-${index + 1}`;
         const isInline = isInlineTextElement(subElements);
 
         switch (type) {
@@ -39,18 +40,35 @@ export function Elements(props: ElementsProps) {
                 indentation={indentation}
                 hasSiblings={hasSiblings}
                 isText={isText}
+                keyValue={key}
               />
             );
           case ATTRIBUTE_COMMENT:
             return (
-              <CommentTag key={key} isInline={isInline} indentation={indentation} level={level}>
-                <Elements elements={subElements as Element[]} level={level + 1} isText={false} />
+              <CommentTag
+                key={key}
+                keyValue={key}
+                isInline={isInline}
+                indentation={indentation}
+                level={level}
+              >
+                <Elements
+                  elements={subElements as Element[]}
+                  level={level + 1}
+                  parentKey={key}
+                  isText={false}
+                />
               </CommentTag>
             );
           case ATTRIBUTE_CDATA:
             return (
-              <CDataTag key={key} indentation={indentation} isInline={isInline}>
-                <Elements elements={subElements as Element[]} level={level + 1} isText={false} />
+              <CDataTag key={key} keyValue={key} indentation={indentation} isInline={isInline}>
+                <Elements
+                  elements={subElements as Element[]}
+                  level={level + 1}
+                  parentKey={key}
+                  isText={false}
+                />
               </CDataTag>
             );
           case DECLARATION_TAG:
@@ -60,6 +78,7 @@ export function Elements(props: ElementsProps) {
                 indentation={indentation}
                 tagKey={tagKey}
                 attributes={attributes}
+                keyValue={key}
               />
             );
           default:
@@ -72,8 +91,9 @@ export function Elements(props: ElementsProps) {
                 isInline={isInline}
                 hasChildren={subElements.length > 0}
                 level={level}
+                keyValue={key}
               >
-                <Elements elements={subElements as Element[]} level={level + 1} />
+                <Elements elements={subElements as Element[]} level={level + 1} parentKey={key} />
               </Tag>
             );
         }

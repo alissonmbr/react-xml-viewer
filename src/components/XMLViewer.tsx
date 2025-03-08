@@ -1,10 +1,12 @@
 import { defaultTheme } from 'contants';
+import { LineNumberContext } from 'context/line-number-context';
 import { XMLViewerContext } from 'context/xml-viewer-context';
 import useXMLViewer from 'hooks/useXMLViewer';
 import _isEqual from 'lodash/isEqual';
 import { useEffect, useMemo, useState } from 'react';
 import { Elements } from './Elements';
 import { InvalidXml } from './InvalidXml';
+import { LineNumbers } from './LineNumbers';
 import { Theme, XMLViewerProps } from './types';
 
 export default function XMLViewer(props: XMLViewerProps): JSX.Element {
@@ -19,6 +21,8 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
   } = props;
   const [theme, setTheme] = useState<Theme>(() => ({ ...defaultTheme, ...customTheme }));
   const { json, valid } = useXMLViewer(xml);
+  const [viewerContainer, setViewerContainer] = useState<HTMLDivElement | null>(null);
+
   const context = useMemo(
     () => ({
       theme,
@@ -42,12 +46,22 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
 
   return (
     <XMLViewerContext.Provider value={context}>
-      <div
-        className="rxv-container"
-        style={{ whiteSpace: 'pre-wrap', fontFamily: theme.fontFamily, overflowWrap: 'break-word' }}
-      >
-        <Elements elements={json} />
-      </div>
+      <LineNumberContext>
+        <div
+          className="rxv-container"
+          style={{
+            whiteSpace: 'pre-wrap',
+            fontFamily: theme.fontFamily,
+            overflowWrap: 'break-word',
+            display: 'inline-flex',
+          }}
+        >
+          <LineNumbers viewerContainer={viewerContainer}/>
+          <div ref={setViewerContainer}>
+            <Elements elements={json} />
+          </div>
+        </div>
+      </LineNumberContext>
     </XMLViewerContext.Provider>
   );
 }

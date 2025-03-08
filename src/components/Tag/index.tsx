@@ -3,6 +3,7 @@ import { CollapseIcon } from 'components/CollapseIcon';
 import { useXMLViewerContext } from 'context/xml-viewer-context';
 import { hasAttributes } from 'helpers';
 import { useCollapsible } from 'hooks/useCollapsible';
+import { useLineNumber } from 'hooks/useLineNumber';
 import { ReactNode } from 'react';
 import { AttributesObject } from 'types';
 
@@ -14,15 +15,19 @@ export interface TagProps {
   isInline: boolean;
   hasChildren: boolean;
   level: number;
+  keyValue: string;
 }
 
 export function Tag(props: TagProps) {
-  const { indentation, tagKey, attributes, children, isInline, hasChildren, level } = props;
+  const { indentation, tagKey, attributes, children, isInline, hasChildren, level, keyValue } =
+    props;
   const { collapsed, buttonProps } = useCollapsible(level);
   const { theme } = useXMLViewerContext();
+  const tagRef = useLineNumber<HTMLDivElement>(keyValue);
+  const closeTagRef = useLineNumber<HTMLSpanElement>(`${keyValue}-close`, !isInline);
 
   return (
-    <div>
+    <div ref={tagRef}>
       <span {...buttonProps}>
         <span>{indentation}</span>
         <CollapseIcon collapsed={collapsed} />
@@ -34,13 +39,20 @@ export function Tag(props: TagProps) {
       </span>
       {hasChildren && (
         <>
-          {!collapsed && children}
+          <span style={{ display: collapsed ? 'none' : undefined }}>{children}</span>
           {collapsed && '...'}
-          <span style={{ color: theme.separatorColor }}>{`${
-            isInline || collapsed ? '' : indentation
-          }</`}</span>
-          <span style={{ color: theme.tagColor }}>{`${tagKey}`}</span>
-          <span style={{ color: theme.separatorColor }}>{'>'}</span>
+          <span
+            style={{ color: theme.separatorColor, display: collapsed ? 'none' : undefined }}
+          >{`${isInline || collapsed ? '' : indentation}</`}</span>
+          <span
+            style={{ color: theme.tagColor, display: collapsed ? 'none' : undefined }}
+          >{`${tagKey}`}</span>
+          <span
+            style={{ color: theme.separatorColor, display: collapsed ? 'none' : undefined }}
+            ref={closeTagRef}
+          >
+            {'>'}
+          </span>
         </>
       )}
     </div>
