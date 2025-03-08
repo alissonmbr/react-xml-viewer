@@ -25,6 +25,7 @@ export function Tag(props: TagProps) {
   const { theme } = useXMLViewerContext();
   const tagRef = useLineNumber<HTMLDivElement>(keyValue);
   const closeTagRef = useLineNumber<HTMLSpanElement>(`${keyValue}-close`, !isInline);
+  const display = collapsed ? 'none' : undefined;
 
   return (
     <div ref={tagRef}>
@@ -39,18 +40,13 @@ export function Tag(props: TagProps) {
       </span>
       {hasChildren && (
         <>
-          <span style={{ display: collapsed ? 'none' : undefined }}>{children}</span>
+          <span style={{ display }}>{children}</span>
           {collapsed && '...'}
-          <span
-            style={{ color: theme.separatorColor, display: collapsed ? 'none' : undefined }}
-          >{`${isInline || collapsed ? '' : indentation}</`}</span>
-          <span
-            style={{ color: theme.tagColor, display: collapsed ? 'none' : undefined }}
-          >{`${tagKey}`}</span>
-          <span
-            style={{ color: theme.separatorColor, display: collapsed ? 'none' : undefined }}
-            ref={closeTagRef}
-          >
+          <span style={{ color: theme.separatorColor, display }}>{`${
+            isInline || collapsed ? '' : indentation
+          }</`}</span>
+          <span style={{ color: theme.tagColor, display }}>{`${tagKey}`}</span>
+          <span style={{ color: theme.separatorColor, display }} ref={closeTagRef}>
             {'>'}
           </span>
         </>

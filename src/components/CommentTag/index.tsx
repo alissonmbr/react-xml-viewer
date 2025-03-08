@@ -18,6 +18,7 @@ export function CommentTag(props: CommentTagProps) {
   const { collapsed, buttonProps } = useCollapsible(level);
   const openTagRef = useLineNumber<HTMLSpanElement>(keyValue);
   const closeTagRef = useLineNumber<HTMLSpanElement>(`${keyValue}-close`, !isInline);
+  const display = collapsed ? 'none' : undefined;
 
   return (
     <div style={{ color: theme.commentColor }}>
@@ -26,9 +27,9 @@ export function CommentTag(props: CommentTagProps) {
         <CollapseIcon collapsed={collapsed} />
         <span ref={openTagRef}>{'<!-- '}</span>
       </span>
-      <span style={{ display: collapsed ? 'none' : undefined }}>{children}</span>
+      <span style={{ display }}>{children}</span>
       {collapsed && '...'}
-      <span style={{ display: collapsed ? 'none' : undefined }} ref={closeTagRef}>{`${
+      <span style={{ display }} ref={closeTagRef}>{`${
         isInline || collapsed ? ' ' : indentation
       }-->`}</span>
     </div>

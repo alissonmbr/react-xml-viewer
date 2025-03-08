@@ -25,7 +25,7 @@ export function LineNumbers({ viewerContainer }: LineNumbersProps) {
     () =>
       Object.values(lines)
         .map((line) => {
-          const visible = /* line.visible && */ line.element?.checkVisibility();
+          const visible = line.element?.checkVisibility();
           return {
             ...line,
             offset: visible ? line.element?.offsetTop : getParentOffset(line.element),
@@ -34,10 +34,10 @@ export function LineNumbers({ viewerContainer }: LineNumbersProps) {
         })
         .sort((a, b) => {
           if (a.offset === b.offset) {
-            if (a.element.checkVisibility() === b.element.checkVisibility()) {
+            if (a.visible === b.visible) {
               return 0;
             }
-            return !a.element.checkVisibility() ? 1 : -1;
+            return !a.visible ? 1 : -1;
           }
           return a.offset - b.offset;
         })
@@ -66,7 +66,7 @@ export function LineNumbers({ viewerContainer }: LineNumbersProps) {
     if (viewerContainer) {
       resizeObserver.observe(viewerContainer);
     }
-  });
+  }, [viewerContainer, resizeObserver]);
 
   useEffect(() => {
     return () => {
