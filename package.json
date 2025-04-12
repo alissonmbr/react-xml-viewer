@@ -74,7 +74,7 @@
     "storybook": "^7.0.23",
     "ts-jest": "^29.1.0",
     "typescript": "~5.0.2",
-    "vite": "^4.3.9",
+    "vite": "^4.5.11",
     "vite-plugin-dts": "^2.3.0",
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0"
