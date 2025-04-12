@@ -41,6 +41,57 @@ const xmlString = `
             </author>
          </authors>
       </book>
+      <book ref="3">
+         <name>Book 3</name>
+         <authors>
+            <author>
+               <name>Author 4</name>
+            </author>
+            <author>
+               <name>Author 5</name>
+            </author>
+            <author>
+               <name>Author 6</name>
+            </author>
+         </authors>
+      </book>
+      <book ref="4">
+         <name>Book 4</name>
+         <authors>
+            <author>
+               <name>Author 7</name>
+            </author>
+            <author>
+               <name>Author 8</name>
+            </author>
+            <author>
+               <name>Author 9</name>
+            </author>
+            <author>
+               <name>Author 10</name>
+            </author>
+         </authors>
+      </book>
+      <book ref="5">
+         <name>Book 5</name>
+         <authors>
+            <author>
+               <name>Author 11</name>
+            </author>
+            <author>
+               <name>Author 12</name>
+            </author>
+            <author>
+               <name>Author 13</name>
+            </author>
+            <author>
+               <name>Author 14</name>
+            </author>
+            <author>
+               <name>Author 15</name>
+            </author>
+         </authors>
+      </book>
    </books>
    <texts id="0">
       a
@@ -85,5 +136,6 @@ export const Primary: Story = {
     collapsible: true,
     theme: defaultTheme,
     initialCollapsedDepth: undefined,
+    showLineNumbers: true,
   },
 };

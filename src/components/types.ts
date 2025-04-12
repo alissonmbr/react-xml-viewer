@@ -101,4 +101,10 @@ export interface XMLViewerProps {
    * @default undefined
    */
   initialCollapsedDepth?: number;
+  /**
+   * Show line numbers.
+   *
+   * @default false
+   */
+  showLineNumbers?: boolean;
 }

@@ -35,13 +35,14 @@ export function Tag(props: TagProps) {
         <span style={{ color: theme.separatorColor }}>{'<'}</span>
         <span style={{ color: theme.tagColor }}>{`${tagKey}`}</span>
         {!collapsed && <Attributes attributes={attributes} />}
-        {collapsed && hasAttributes(attributes) && ' ...'}
-        <span style={{ color: theme.separatorColor }}>{!hasChildren ? ' />' : '>'}</span>
+        {!collapsed && (
+          <span style={{ color: theme.separatorColor }}>{!hasChildren ? ' />' : '>'}</span>
+        )}
       </span>
       {hasChildren && (
         <>
           <span style={{ display }}>{children}</span>
-          {collapsed && '...'}
+          {collapsed && <span style={{ color: '#777' }}>...</span>}
           <span style={{ color: theme.separatorColor, display }}>{`${
             isInline || collapsed ? '' : indentation
           }</`}</span>

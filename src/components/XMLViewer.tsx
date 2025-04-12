@@ -18,6 +18,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
     invalidXml,
     initalCollapsedDepth,
     initialCollapsedDepth,
+    showLineNumbers,
   } = props;
   const [theme, setTheme] = useState<Theme>(() => ({ ...defaultTheme, ...customTheme }));
   const { json, valid } = useXMLViewer(xml);
@@ -56,8 +57,15 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
             display: 'inline-flex',
           }}
         >
-          <LineNumbers viewerContainer={viewerContainer}/>
-          <div ref={setViewerContainer}>
+          {showLineNumbers && <LineNumbers viewerContainer={viewerContainer} />}
+          <div
+            ref={setViewerContainer}
+            style={{
+              flex: 1,
+              paddingTop: showLineNumbers ? 4 : 0,
+              paddingBottom: showLineNumbers ? 4 : 0,
+            }}
+          >
             <Elements elements={json} />
           </div>
         </div>
