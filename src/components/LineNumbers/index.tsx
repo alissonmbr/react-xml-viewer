@@ -1,6 +1,6 @@
 import { useLineNumberContext } from 'context/line-number-context';
 import { useXMLViewerContext } from 'context/xml-viewer-context';
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 const getParentOffset = (element: HTMLElement | null): number => {
   if (!element || !element.parentElement) {

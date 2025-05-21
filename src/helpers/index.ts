@@ -46,11 +46,3 @@ export function getTagProps(element: Element) {
   const type = getTagType(tagKey);
   return { attributes, tagKey, subElements, type };
 }
-
-export function hasAttributes(attributes: AttributesObject) {
-  if (!attributes) {
-    return false;
-  }
-
-  return Object.keys(attributes).length > 0;
-}
