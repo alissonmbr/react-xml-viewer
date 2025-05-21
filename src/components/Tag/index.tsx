@@ -1,7 +1,6 @@
 import { Attributes } from 'components/Attributes';
 import { CollapseIcon } from 'components/CollapseIcon';
 import { useXMLViewerContext } from 'context/xml-viewer-context';
-import { hasAttributes } from 'helpers';
 import { useCollapsible } from 'hooks/useCollapsible';
 import { useLineNumber } from 'hooks/useLineNumber';
 import { ReactNode } from 'react';
