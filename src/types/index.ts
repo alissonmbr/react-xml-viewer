@@ -27,5 +27,4 @@ export interface Line {
 export interface ILineNumberContext {
   lines: Record<string, Line>;
   push: (key: string, line: Line) => void;
-  reset: () => void;
 }

@@ -47,6 +47,18 @@ export interface Theme {
    * @default monospace
    */
   fontFamily?: string;
+  /**
+   * The line number container background color
+   *
+   * @default #eee
+   */
+  lineNumberBackground?: string;
+  /**
+   * The line number color
+   *
+   * @default #222
+   */
+  lineNumberColor?: string;
 }
 
 export interface XMLViewerProps {

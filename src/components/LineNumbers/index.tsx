@@ -1,4 +1,5 @@
 import { useLineNumberContext } from 'context/line-number-context';
+import { useXMLViewerContext } from 'context/xml-viewer-context';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 const getParentOffset = (element: HTMLElement | null): number => {
@@ -18,7 +19,8 @@ interface LineNumbersProps {
 }
 
 export function LineNumbers({ viewerContainer }: LineNumbersProps) {
-  const { lines, reset } = useLineNumberContext();
+  const { lines } = useLineNumberContext();
+  const { theme } = useXMLViewerContext();
   const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
   const lineNumbersContainer = useRef<HTMLDivElement | null>(null);
   const { sortedLines, numberOfLines } = useMemo(() => {
@@ -60,10 +62,6 @@ export function LineNumbers({ viewerContainer }: LineNumbersProps) {
     });
   }, []);
 
-  useLayoutEffect(() => {
-    reset();
-  }, [reset]);
-
   useEffect(() => {
     if (viewerContainer) {
       resizeObserver.observe(viewerContainer);
@@ -82,7 +80,8 @@ export function LineNumbers({ viewerContainer }: LineNumbersProps) {
       style={{
         width: 16 + 8 * String(numberOfLines).length,
         height: 'auto',
-        backgroundColor: '#eee',
+        backgroundColor: theme.lineNumberBackground,
+        color: theme.lineNumberColor,
         marginRight: 16,
         paddingTop: 8,
         position: 'relative',

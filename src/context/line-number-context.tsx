@@ -4,7 +4,6 @@ import { ILineNumberContext, Line } from 'types';
 const defaultState: ILineNumberContext = {
   lines: {},
   push: () => undefined,
-  reset: () => undefined,
 };
 
 const LineNumberContextInner = createContext<ILineNumberContext>(defaultState);
@@ -22,11 +21,7 @@ export const LineNumberContext = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
-  const reset = useCallback(() => {
-    setLines({});
-  }, []);
-
-  const value = useMemo(() => ({ lines, push, reset }), [lines, push, reset]);
+  const value = useMemo(() => ({ lines, push }), [lines, push]);
 
   return (
     <LineNumberContextInner.Provider value={value}>{children}</LineNumberContextInner.Provider>

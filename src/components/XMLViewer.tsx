@@ -18,7 +18,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
     invalidXml,
     initalCollapsedDepth,
     initialCollapsedDepth,
-    showLineNumbers,
+    showLineNumbers = false,
   } = props;
   const [theme, setTheme] = useState<Theme>(() => ({ ...defaultTheme, ...customTheme }));
   const { json, valid } = useXMLViewer(xml);
@@ -47,14 +47,13 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
 
   return (
     <XMLViewerContext.Provider value={context}>
-      <LineNumberContext>
+      <LineNumberContext key={xml}>
         <div
           className="rxv-container"
           style={{
-            whiteSpace: 'pre-wrap',
             fontFamily: theme.fontFamily,
-            overflowWrap: 'break-word',
-            display: 'inline-flex',
+            display: 'flex',
+            flexDirection: 'row',
           }}
         >
           {showLineNumbers && <LineNumbers viewerContainer={viewerContainer} />}
@@ -62,8 +61,11 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
             ref={setViewerContainer}
             style={{
               flex: 1,
-              paddingTop: showLineNumbers ? 4 : 0,
-              paddingBottom: showLineNumbers ? 4 : 0,
+              whiteSpace: 'pre-wrap',
+              overflowWrap: 'break-word',
+              overflow: 'auto',
+              paddingTop: 4,
+              paddingBottom: 4,
             }}
           >
             <Elements elements={json} />
