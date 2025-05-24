@@ -16,7 +16,6 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
     collapsible = false,
     indentSize = 2,
     invalidXml,
-    initalCollapsedDepth,
     initialCollapsedDepth,
     showLineNumbers = false,
   } = props;
@@ -29,9 +28,9 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
       theme,
       collapsible,
       indentSize,
-      initialCollapsedDepth: initialCollapsedDepth ?? initalCollapsedDepth,
+      initialCollapsedDepth: initialCollapsedDepth,
     }),
-    [theme, collapsible, indentSize, initalCollapsedDepth, initialCollapsedDepth],
+    [theme, collapsible, indentSize, initialCollapsedDepth],
   );
 
   useEffect(() => {

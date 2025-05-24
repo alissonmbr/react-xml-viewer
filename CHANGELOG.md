@@ -1,3 +1,12 @@
+## 3.0.0
+_May 25, 2025_
+
+- feat: show line numbers
+- chore: updating dependencies
+- fix: fixing vulnerabilities
+- doc: improving README
+- BREAKING CHANGES: removed the initalCollapsedDepth prop
+
 ## 2.0.4
 
 _Feb 25, 2025_

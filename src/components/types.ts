@@ -103,10 +103,6 @@ export interface XMLViewerProps {
    */
   collapsible?: boolean;
   /**
-   * @deprecated use the initialCollapsedDepth instead
-   */
-  initalCollapsedDepth?: number;
-  /**
    * When the **collapsible** is true, this set the level that will be started as collapsed.
    * For example, if you want to everything starts as collapsed, set 0.
    *
