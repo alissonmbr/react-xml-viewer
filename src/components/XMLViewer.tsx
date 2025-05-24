@@ -28,7 +28,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
       theme,
       collapsible,
       indentSize,
-      initialCollapsedDepth: initialCollapsedDepth,
+      initialCollapsedDepth,
     }),
     [theme, collapsible, indentSize, initialCollapsedDepth],
   );
