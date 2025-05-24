@@ -1,18 +1,7 @@
 import { useLineNumberContext } from 'context/line-number-context';
 import { useXMLViewerContext } from 'context/xml-viewer-context';
 import { useEffect, useMemo, useRef, useState } from 'react';
-
-const getParentOffset = (element: HTMLElement | null): number => {
-  if (!element || !element.parentElement) {
-    return 0;
-  }
-
-  if (element.parentElement?.checkVisibility?.()) {
-    return element.parentElement.offsetTop;
-  }
-
-  return getParentOffset(element.parentElement);
-};
+import { checkVisibility, getParentOffset } from './helpers';
 
 interface LineNumbersProps {
   viewerContainer: HTMLDivElement | null;
@@ -26,7 +15,7 @@ export function LineNumbers({ viewerContainer }: LineNumbersProps) {
   const { sortedLines, numberOfLines } = useMemo(() => {
     const allLines = Object.values(lines)
       .map((line) => {
-        const visible = line.element?.checkVisibility();
+        const visible = checkVisibility(line.element);
         return {
           ...line,
           offset: visible ? line.element?.offsetTop : getParentOffset(line.element),

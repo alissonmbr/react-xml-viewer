@@ -84,25 +84,25 @@ describe('XMLViewer', () => {
     render(<XMLViewer xml={xml} collapsible />);
     expect(screen.getByText(/<\?/)).toBeInTheDocument();
     expect(screen.getByText('xml')).toBeInTheDocument();
-    expect(screen.getByText('version')).toBeInTheDocument();
-    expect(screen.getByText('"1.0"')).toBeInTheDocument();
-    expect(screen.getByText(/\?>/)).toBeInTheDocument();
+    expect(screen.getByText('version')).toBeVisible();
+    expect(screen.getByText('"1.0"')).toBeVisible();
+    expect(screen.getByText(/\?>/)).toBeVisible();
     expect(screen.getAllByText('book')).toHaveLength(2);
-    expect(screen.getByText('ref')).toBeInTheDocument();
-    expect(screen.getByText('"1"')).toBeInTheDocument();
-    expect(screen.getByText('The Hobbit')).toBeInTheDocument();
+    expect(screen.getByText('ref')).toBeVisible();
+    expect(screen.getByText('"1"')).toBeVisible();
+    expect(screen.getByText('The Hobbit')).toBeVisible();
     expect(screen.getByTestId('caret')).toBeInTheDocument();
     expect(screen.queryByText('...')).toBeNull();
     fireEvent.click(screen.getByTestId('caret'));
-    expect(screen.getByText(/<\?/)).toBeInTheDocument();
-    expect(screen.getByText('xml')).toBeInTheDocument();
-    expect(screen.getByText('version')).toBeInTheDocument();
-    expect(screen.getByText('"1.0"')).toBeInTheDocument();
-    expect(screen.getByText(/\?>/)).toBeInTheDocument();
+    expect(screen.getByText(/<\?/)).toBeVisible();
+    expect(screen.getByText('xml')).toBeVisible();
+    expect(screen.getByText('version')).toBeVisible();
+    expect(screen.getByText('"1.0"')).toBeVisible();
+    expect(screen.getByText(/\?>/)).toBeVisible();
     expect(screen.getAllByText('book')).toHaveLength(2);
-    expect(screen.queryByText('The Hobbit')).toBeNull();
+    expect(screen.queryByText('The Hobbit')).not.toBeVisible();
     expect(screen.getByTestId('caret')).toBeInTheDocument();
-    expect(screen.getAllByText('...')).toHaveLength(2);
+    expect(screen.getAllByText('...')).toHaveLength(1);
   });
 
   it('should render empty xml', () => {
@@ -124,13 +124,13 @@ describe('XMLViewer', () => {
       <!-- comment -->
     `;
     render(<XMLViewer xml={xml} collapsible />);
-    expect(screen.getByText('comment')).toBeInTheDocument();
+    expect(screen.getByText('comment')).toBeVisible();
     expect(screen.getByTestId('caret')).toBeInTheDocument();
     expect(screen.queryByText('...')).toBeNull();
     expect(screen.getByText(/<!--/)).toBeInTheDocument();
     expect(screen.getByText(/-->/)).toBeInTheDocument();
     fireEvent.click(screen.getByTestId('caret'));
-    expect(screen.queryByText('comment')).toBeNull();
+    expect(screen.queryByText('comment')).not.toBeVisible();
     expect(screen.getByTestId('caret')).toBeInTheDocument();
     expect(screen.getByText('...')).toBeInTheDocument();
     expect(screen.getByText(/<!--/)).toBeInTheDocument();
@@ -144,16 +144,16 @@ describe('XMLViewer', () => {
           this should be collapsed
         </level1>
       </root>
-    `
+    `;
     render(<XMLViewer xml={xml} collapsible initialCollapsedDepth={1} />);
     expect(screen.getAllByText('root')).toHaveLength(2);
     expect(screen.getAllByText('level1')).toHaveLength(2);
-    expect(screen.queryByText('this should be collapsed')).toBeNull();
+    expect(screen.queryByText('this should be collapsed')).not.toBeVisible();
     expect(screen.getByText('...')).toBeInTheDocument();
     fireEvent.click(screen.getAllByText('level1')[0]);
     expect(screen.getAllByText('root')).toHaveLength(2);
     expect(screen.getAllByText('level1')).toHaveLength(2);
-    expect(screen.getByText('this should be collapsed')).toBeInTheDocument();
+    expect(screen.getByText('this should be collapsed')).toBeVisible();
     expect(screen.queryByText('...')).toBeNull();
   });
 
@@ -162,5 +162,17 @@ describe('XMLViewer', () => {
     const invalidXml = <div>Custom Invalid XML</div>;
     render(<XMLViewer xml={xml} invalidXml={invalidXml} />);
     expect(screen.getByText('Custom Invalid XML')).toBeInTheDocument();
+  });
+
+  it('should show line numbers', () => {
+    const xml = `
+      <root>
+        <levelA>A</levelA>
+      </root>
+    `;
+    render(<XMLViewer xml={xml} showLineNumbers />);
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
   });
 });
