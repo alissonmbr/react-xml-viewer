@@ -1,8 +1,8 @@
 import { defaultTheme } from 'contants';
 import { LineNumberContext } from 'context/line-number-context';
 import { XMLViewerContext } from 'context/xml-viewer-context';
+import { isNextThemeEqual } from 'helpers';
 import useXMLViewer from 'hooks/useXMLViewer';
-import _isEqual from 'lodash/isEqual';
 import { useEffect, useMemo, useState } from 'react';
 import { Elements } from './Elements';
 import { InvalidXml } from './InvalidXml';
@@ -36,7 +36,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
   useEffect(() => {
     setTheme((currentTheme) => {
       const nextTheme = { ...defaultTheme, ...customTheme };
-      return _isEqual(nextTheme, currentTheme) ? currentTheme : nextTheme;
+      return isNextThemeEqual(nextTheme, currentTheme) ? currentTheme : nextTheme;
     });
   }, [customTheme]);
 
@@ -65,6 +65,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
               overflow: 'auto',
               paddingTop: 4,
               paddingBottom: 4,
+              paddingLeft: collapsible ? 10 : 0,
             }}
           >
             <Elements elements={json} />
