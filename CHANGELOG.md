@@ -6,6 +6,7 @@ _May 25, 2025_
 - fix: fixing vulnerabilities
 - doc: improving README
 - BREAKING CHANGES: removed the initalCollapsedDepth prop
+- refactor: removed lodash to reduce bundle size
 
 ## 2.0.4
 
