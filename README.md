@@ -1,26 +1,26 @@
 [Buy me a coffee ☕](https://www.buymeacoffee.com/alissonmbr)
 
-
 # react-xml-viewer
+
 [![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer)\
 Simple and configurable React component to prettify XMLs.
-
-
 
 <img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/example.png" width="300"/>
 
 ## Live demo
-[![Edit react-xml-view](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-xml-viewer-v2-example-6xh9yq)
 
+[![Edit react-xml-view](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-xml-viewer-v2-example-6xh9yq)
 
 ## Install
 
 #### npm
+
 ```bash
 npm install --save react-xml-viewer
 ```
 
 #### yarn
+
 ```bash
 yarn add react-xml-viewer
 ```
@@ -28,74 +28,112 @@ yarn add react-xml-viewer
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
-import XMLViewer from 'react-xml-viewer'
+import React, { Component } from 'react';
+import XMLViewer from 'react-xml-viewer';
 
-const xml = '<hello>World</hello>'
+const xml = '<hello>World</hello>';
 
 export function App() {
-    return (
-      <div>
-        <XMLViewer xml={xml} />
-      </div>
-    )
+  return (
+    <div>
+      <XMLViewer xml={xml} />
+    </div>
+  );
 }
 ```
 
 ## Props
-### xml (string)
-A xml string to prettify.\
-**Default**: undefined\
-**Example**: `<hello>World</hello>`
 
-### indentSize (number)
-The size of the indentation.\
-**Default**: 2
+```tsx
+<XMLViewer
+  // A xml string to prettify.
+  // Default: undefined
+  xml="<hello>World</hello>"
 
-### invalidXml (JSX.Element)
-When the xml is invalid, invalidXml component will be returned.\
-**Default**: `<div>Invalid XML!</div>`
+  // The size of the indentation.
+  // Default: 2
+  indentSize={2}
 
-### collapsible (boolean)
-Allow collapse/expand tags by click on them. When tag is collapsed its content and attributes are hidden.\
-**Default**: false
+  // When the xml is invalid, invalidXml component will be displayed.
+  // Default: <div>Invalid XML!</div>
+  invalidXml={<div>Invalid XML!</div>}
 
-### initialCollapsedDepth (number)
-When the **collapsible** is true, this set the level that will be started as collapsed. For example, if you want to everything starts as collapsed, set 0.\
-**Default**: undefined
+  // Enable collapsing or expanding tags by clicking on them.
+  // Default: false
+  collapsible={false}
 
-### theme (object)
-An object to customize the default theme.
+  // When collapsible is true, this sets the level that will be started as collapsed.
+  // Default: undefined
+  initialCollapsedDepth={undefined}
 
-| Key | Type | Default | Description |
-| --- | ---- | ------- | ----------- |
-| attributeKeyColor | color | #2a7ab0 | Set the attribute key color (`<tag attribute-key="hello" />`) |
-| attributeValueColor | color | #008000 | Set the attribute value color (` <tag attr="Attribute value">`) |
-| cdataColor | color | #1D781D | Set the cdata element color (`<![CDATA[some stuff]]>`) |
-| commentColor | color | #aaa | Set the comment color (`<!-- this is a comment -->`)
-| fontFamily | font | monospace | Set the font family
-| separatorColor | color | #333 | Set the separators colors (`<, >, </, />, =, <?, ?>`)
-| tagColor | color | #d43900 | Set the tag name color (`<tag-name />`) |
-| textColor | color | #333 | Set the text color (`<tag>Text</tag>`)|
+  // Displays line numbers on the left side when set to true.
+  // Default: false
+  showLineNumbers={false}
+
+  // An object to customize the theme.
+  theme={{
+    // Set the attribute key color (<tag attribute-key="hello" />)
+    // Default: #2a7ab0
+    attributeKeyColor: '#2a7ab0',
+
+    // Set the attribute value color (<tag attr="Attribute value">)
+    // Default: #008000
+    attributeValueColor: '#008000',
+
+    // Set the cdata element color (<![CDATA[some stuff]]>)
+    // Default: #1D781D
+    cdataColor: '#1D781D',
+
+    // Set the comment color (<!-- this is a comment -->)
+    // Default: #aaa
+    commentColor: '#aaa',
+
+    // Set the font family
+    // Default: monospace
+    fontFamily: 'monospace',
+
+    // Set the separators colors (<, >, </, />, =, <?, ?>)
+    // Default: #333
+    separatorColor: '#333',
+
+    // Set the tag name color (<tag-name />)
+    // Default: #d43900
+    tagColor: '#d43900',
+
+    // Set the text color (<tag>Text</tag>)
+    // Default: #333
+    textColor: '#333',
+
+    // Set the line numbers container background color
+    // Default: #eee
+    lineNumberBackground: '#eee',
+
+    // Set the line numbers color
+    // Default: #222
+    lineNumberColor: '#222',
+  }}
+/>
+```
 
 **Example**:
 Changing attribute key and value color
-``` jsx
-import React, { Component } from 'react'
-import XMLViewer from 'react-xml-viewer'
 
-const xml = '<hello attr="World" />'
+```jsx
+import React, { Component } from 'react';
+import XMLViewer from 'react-xml-viewer';
+
+const xml = '<hello attr="World" />';
 const customTheme = {
-  "attributeKeyColor": "#FF0000",
-  "attributeValueColor": "#000FF"
-}
+  attributeKeyColor: '#FF0000',
+  attributeValueColor: '#000FF',
+};
 
 export function App() {
   return (
     <div>
       <XMLViewer xml={xml} theme={customTheme} />
     </div>
-  )
+  );
 }
 ```
 

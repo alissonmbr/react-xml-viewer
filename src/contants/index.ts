@@ -14,4 +14,6 @@ export const defaultTheme = {
   commentColor: '#aaa',
   cdataColor: '#1d781d',
   fontFamily: 'monospace',
+  lineNumberBackground: '#eee',
+  lineNumberColor: '#222',
 };

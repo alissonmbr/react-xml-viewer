@@ -47,6 +47,18 @@ export interface Theme {
    * @default monospace
    */
   fontFamily?: string;
+  /**
+   * The line number container background color
+   *
+   * @default #eee
+   */
+  lineNumberBackground?: string;
+  /**
+   * The line number color
+   *
+   * @default #222
+   */
+  lineNumberColor?: string;
 }
 
 export interface XMLViewerProps {
@@ -91,14 +103,16 @@ export interface XMLViewerProps {
    */
   collapsible?: boolean;
   /**
-   * @deprecated use the initialCollapsedDepth instead
-   */
-  initalCollapsedDepth?: number;
-  /**
    * When the **collapsible** is true, this set the level that will be started as collapsed.
    * For example, if you want to everything starts as collapsed, set 0.
    *
    * @default undefined
    */
   initialCollapsedDepth?: number;
+  /**
+   * Show line numbers.
+   *
+   * @default false
+   */
+  showLineNumbers?: boolean;
 }

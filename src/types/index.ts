@@ -19,3 +19,12 @@ export interface IXmlViewerContext {
   theme: Theme;
   initialCollapsedDepth?: number;
 }
+
+export interface Line {
+  element: HTMLElement;
+}
+
+export interface ILineNumberContext {
+  lines: Record<string, Line>;
+  push: (key: string, line: Line) => void;
+}

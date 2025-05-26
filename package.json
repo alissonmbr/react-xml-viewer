@@ -1,6 +1,6 @@
 {
   "name": "react-xml-viewer",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "Simple xml viewer component for React",
   "author": "alissonmbr",
   "license": "MIT",
@@ -31,7 +31,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest",
-    "test-coverage": "jest --coverage"
+    "test-coverage": "jest --coverage",
+    "analyze": "npx vite-bundle-visualizer"
   },
   "peerDependencies": {
     "react": ">= 16.8.4",
@@ -40,14 +41,15 @@
   "devDependencies": {
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-react": "^7.22.5",
-    "@storybook/addon-essentials": "^7.0.23",
-    "@storybook/addon-interactions": "^7.0.23",
-    "@storybook/addon-links": "^7.0.23",
-    "@storybook/blocks": "^7.0.23",
-    "@storybook/react": "^7.0.23",
-    "@storybook/react-vite": "^7.0.23",
-    "@storybook/testing-library": "^0.2.0",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@chromatic-com/storybook": "^3",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-interactions": "^8.6.14",
+    "@storybook/addon-links": "^8.6.14",
+    "@storybook/blocks": "^8.6.14",
+    "@storybook/react": "^8.6.14",
+    "@storybook/react-vite": "^8.6.14",
+    "@storybook/test": "^8.6.14",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.2",
     "@types/react": "^18.2.14",
@@ -71,10 +73,10 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.23",
+    "storybook": "^8.6.14",
     "ts-jest": "^29.1.0",
     "typescript": "~5.0.2",
-    "vite": "^4.3.9",
+    "vite": "^4.5.11",
     "vite-plugin-dts": "^2.3.0",
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0"
@@ -83,7 +85,7 @@
     "dist"
   ],
   "dependencies": {
-    "fast-xml-parser": "^4.5.0",
-    "lodash": "^4.17.21"
-  }
+    "fast-xml-parser": "^4.5.0"
+  },
+  "packageManager": "yarn@4.9.1"
 }
