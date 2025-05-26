@@ -5,7 +5,7 @@
 [![NPM](https://img.shields.io/npm/v/react-xml-viewer.svg)](https://www.npmjs.com/package/react-xml-viewer)\
 Simple and configurable React component to prettify XMLs.
 
-<img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/example.png" width="300"/>
+<img src="https://raw.githubusercontent.com/alissonmbr/react-xml-viewer/refs/heads/main/example.png" width="300"/>
 
 ## Live demo
 
