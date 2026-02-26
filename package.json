@@ -1,6 +1,6 @@
 {
   "name": "react-xml-viewer",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Simple xml viewer component for React",
   "author": "alissonmbr",
   "license": "MIT",
@@ -89,7 +89,7 @@
     "dist"
   ],
   "dependencies": {
-    "fast-xml-parser": "^4.5.0"
+    "fast-xml-parser": "5.4.1"
   },
   "packageManager": "yarn@4.9.1"
 }
