@@ -1,17 +1,32 @@
 import { useLineNumberContext } from 'context/line-number-context';
 import { useXMLViewerContext } from 'context/xml-viewer-context';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDebouncedCallback } from 'hooks/useDebouncedCallback';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { checkVisibility, getParentOffset } from './helpers';
 
 interface LineNumbersProps {
   viewerContainer: HTMLDivElement | null;
 }
 
+type ContainerDimensions = {
+  width: number;
+  height: number;
+};
+
 export function LineNumbers({ viewerContainer }: LineNumbersProps) {
   const { lines } = useLineNumberContext();
   const { theme } = useXMLViewerContext();
-  const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
+  const [containerDimensions, setContainerDimensions] = useState<ContainerDimensions>({
+    width: 0,
+    height: 0,
+  });
   const lineNumbersContainer = useRef<HTMLDivElement | null>(null);
+  const updateContainerDimensions = useCallback(
+    (containerDimensions: ContainerDimensions) => setContainerDimensions(containerDimensions),
+    [],
+  );
+  const debouncedSetContainerDimensions = useDebouncedCallback(updateContainerDimensions, 300);
+
   const { sortedLines, numberOfLines } = useMemo(() => {
     const allLines = Object.values(lines)
       .map((line) => {
@@ -47,9 +62,9 @@ export function LineNumbers({ viewerContainer }: LineNumbersProps) {
   const resizeObserver = useMemo(() => {
     return new ResizeObserver(function (entries) {
       const { width, height } = entries[0].contentRect;
-      setContainerDimensions({ width, height });
+      debouncedSetContainerDimensions({ width, height });
     });
-  }, []);
+  }, [debouncedSetContainerDimensions]);
 
   useEffect(() => {
     if (viewerContainer) {

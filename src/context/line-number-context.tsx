@@ -1,4 +1,13 @@
-import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
+import { useDebouncedCallback } from 'hooks/useDebouncedCallback';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { ILineNumberContext, Line } from 'types';
 
 const defaultState: ILineNumberContext = {
@@ -8,20 +17,32 @@ const defaultState: ILineNumberContext = {
 
 const LineNumberContextInner = createContext<ILineNumberContext>(defaultState);
 
-export const LineNumberContext = ({ children }: { children: ReactNode }) => {
+type LineNumberContextProps = {
+  children: ReactNode;
+  enabled: boolean;
+};
+
+export const LineNumberContext = ({ children, enabled = false }: LineNumberContextProps) => {
   const [lines, setLines] = useState<Record<string, Line>>({});
+  const linesRef = useRef<Record<string, Line>>({});
+  const updateLines = useCallback(() => {
+    setLines(linesRef.current);
+  }, []);
+  const debouncedUpdateLines = useDebouncedCallback(updateLines, 100);
 
   const push = useCallback((key: string, line: Line) => {
-    setLines((prev) => {
-      if (prev[key]?.element === line.element) {
-        return prev;
-      }
+    if (!enabled) {
+      return;
+    }
 
-      return { ...prev, [key]: line };
-    });
+    if (linesRef.current[key]?.element !== line.element) {
+      linesRef.current[key] = line;
+    }
+
+    debouncedUpdateLines();
   }, []);
 
-  const value = useMemo(() => ({ lines, push }), [lines, push]);
+  const value = useMemo(() => ({ lines, push }), [lines, push, enabled]);
 
   return (
     <LineNumberContextInner.Provider value={value}>{children}</LineNumberContextInner.Provider>

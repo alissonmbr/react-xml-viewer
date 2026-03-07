@@ -6,6 +6,7 @@ import { TextElement } from 'components/TextElement';
 import { ATTRIBUTE_CDATA, ATTRIBUTE_COMMENT, ATTRIBUTE_TEXT, DECLARATION_TAG } from 'contants';
 import { useXMLViewerContext } from 'context/xml-viewer-context';
 import { getIndentationString, getTagProps, isInlineTextElement } from 'helpers';
+import { memo } from 'react';
 import { Element } from 'types';
 
 export interface ElementsProps {
@@ -14,7 +15,8 @@ export interface ElementsProps {
   isText?: boolean;
   parentKey?: string;
 }
-export function Elements(props: ElementsProps) {
+
+function ElementsComponent(props: ElementsProps) {
   const { elements, level = 0, isText = true, parentKey = '' } = props;
   const { indentSize } = useXMLViewerContext();
 
@@ -101,3 +103,5 @@ export function Elements(props: ElementsProps) {
     </>
   );
 }
+
+export const Elements = memo(ElementsComponent);

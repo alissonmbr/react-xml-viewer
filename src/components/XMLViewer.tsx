@@ -9,7 +9,7 @@ import { InvalidXml } from './InvalidXml';
 import { LineNumbers } from './LineNumbers';
 import { Theme, XMLViewerProps } from './types';
 
-export default function XMLViewer(props: XMLViewerProps): JSX.Element {
+function XMLViewer(props: XMLViewerProps): JSX.Element {
   const {
     theme: customTheme,
     xml,
@@ -46,7 +46,7 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
 
   return (
     <XMLViewerContext.Provider value={context}>
-      <LineNumberContext key={xml}>
+      <LineNumberContext key={`${xml}-${showLineNumbers}`} enabled={showLineNumbers}>
         <div
           className="rxv-container"
           style={{
@@ -75,3 +75,5 @@ export default function XMLViewer(props: XMLViewerProps): JSX.Element {
     </XMLViewerContext.Provider>
   );
 }
+
+export default XMLViewer;
