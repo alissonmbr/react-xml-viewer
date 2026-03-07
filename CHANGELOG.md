@@ -1,3 +1,9 @@
+## 3.0.2
+_Feb 26, 2026_
+
+- chore: updated `fast-xml-parser` to `5.4.1` (exact version pin)
+- fix: verified no known vulnerabilities in production dependencies (`yarn npm audit --environment production --recursive`)
+
 ## 3.0.0
 _May 25, 2025_
 
