@@ -1,3 +1,8 @@
+## 3.0.3
+_Mar 7, 2026_
+
+- fix: improve line numbers performance and disable line numbers calculation when the line numbers is disabled
+
 ## 3.0.2
 _Feb 26, 2026_
 
