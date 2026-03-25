@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import XMLViewer from '..';
 
 jest.mock('assets/svg/caret-right.svg', () => ({
@@ -25,9 +25,9 @@ describe('XMLViewer', () => {
       </multiLineText>
       <inlineText>inline text</inlineText>
       <!-- <comment>inline comment</comment> -->
-      <!-- 
-        <comment>multi line comment 1</comment> 
-        <comment>multi line comment 2</comment> 
+      <!--
+        <comment>multi line comment 1</comment>
+        <comment>multi line comment 2</comment>
       -->
       <cdata>
           <![CDATA[
@@ -164,15 +164,18 @@ describe('XMLViewer', () => {
     expect(screen.getByText('Custom Invalid XML')).toBeInTheDocument();
   });
 
-  it('should show line numbers', () => {
+  it('should show line numbers', async () => {
     const xml = `
       <root>
         <levelA>A</levelA>
       </root>
     `;
     render(<XMLViewer xml={xml} showLineNumbers />);
-    expect(screen.getByText('1')).toBeInTheDocument();
-    expect(screen.getByText('2')).toBeInTheDocument();
-    expect(screen.getByText('3')).toBeInTheDocument();
+    // LineNumberContext uses 100ms debounce.
+    await waitFor(() => {
+      expect(screen.getByText('1')).toBeInTheDocument();
+      expect(screen.getByText('2')).toBeInTheDocument();
+      expect(screen.getByText('3')).toBeInTheDocument();
+    }, { timeout: 500 });
   });
 });
