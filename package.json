@@ -89,7 +89,7 @@
     "dist"
   ],
   "dependencies": {
-    "fast-xml-parser": "5.4.1"
+    "fast-xml-parser": "5.5.7"
   },
   "packageManager": "yarn@4.9.1"
 }
