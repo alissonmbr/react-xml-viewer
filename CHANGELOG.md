@@ -1,3 +1,8 @@
+## 3.0.4
+_Apr 7, 2026_
+
+- fix: fixing vulnerabilities
+
 ## 3.0.3
 _Mar 7, 2026_
 
