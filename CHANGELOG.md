@@ -1,3 +1,8 @@
+## 3.0.5
+_May 13, 2026_
+
+- fix(security): bump `fast-xml-parser` to `^5.8.0` to resolve [GHSA-gh4j-gqv2-49f6](https://github.com/advisories/GHSA-gh4j-gqv2-49f6) (XML Comment and CDATA Injection via Unescaped Delimiters)
+
 ## 3.0.4
 _Apr 7, 2026_
 
